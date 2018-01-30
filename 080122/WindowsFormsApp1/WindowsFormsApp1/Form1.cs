@@ -176,7 +176,7 @@ namespace WindowsFormsApp1
             int i = 0;
             foreach(string str in curr)
             {
-                labelControl[i].Text = ((round - 1) * 10 + i +1).ToString() + curr[i].ToString();
+                labelControl[i].Text = ((round - 1) * 10 + i + 1).ToString() + curr[i].ToString().Replace("\t", " ");
                 if (i == 9) { break; }
                 i++;
             }
