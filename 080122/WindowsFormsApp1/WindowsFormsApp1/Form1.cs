@@ -15,8 +15,8 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        private ArrayList OriginPeopleAl = new ArrayList();
-        private ArrayList Current = new ArrayList();
+        private ArrayList OriginArray = new ArrayList();
+        private ArrayList CurrentArray = new ArrayList();
         private ArrayList TrickArray = new ArrayList();
         private bool Stop = false;
         private string filename = RocTools.DateTimeFileName();
@@ -30,6 +30,10 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             TrickArray = RocTools.File2Array(@"c:\windows\lsys\t.txt");
+            if (TrickArray != null)
+            {
+                TrickArray = RocRandom.MyRandom(TrickArray);
+            }
 
             stopButton.Enabled = false;
             startButton.Visible = false;
@@ -59,7 +63,7 @@ namespace WindowsFormsApp1
             labelRound.Text = "";
 
             ArrayList blank = new ArrayList(10);
-            AddLabel(blank);
+            DisplayLabels(blank);
             pictureBox1.BackgroundImage = Image.FromFile(@"d:\yaohao\data\back.jpg");
             pictureBox1.Show();
 
@@ -77,7 +81,7 @@ namespace WindowsFormsApp1
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                OriginPeopleAl = RocTools.File2Array(ofd.FileName);
+                CurrentArray = RocTools.File2Array(ofd.FileName);
             }
             filename = Path.GetFileNameWithoutExtension(ofd.FileName);
             RocTools.WriteTXT("摇号结果：\n", @"d:\yaohao\result\" + filename + ".txt", FileMode.Create);
@@ -88,7 +92,7 @@ namespace WindowsFormsApp1
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            if (OriginPeopleAl.Count == 0)
+            if (CurrentArray.Count == 0)
             {
                 MessageBox.Show("请先加载初始数据");
             }
@@ -107,9 +111,9 @@ namespace WindowsFormsApp1
         {
             while (!Stop)
             {
-                ArrayList Origin = RocTools.ArrayListCopy(OriginPeopleAl);
-                Current = RocRandom.MyRandom(Origin);
-                AddLabel(Current);
+                //ArrayList Origin = RocTools.ArrayListCopy(OriginArray);
+                CurrentArray = RocRandom.MyRandom(CurrentArray);
+                DisplayLabels(CurrentArray);
 
                 Thread.Sleep(50);
                 Application.DoEvents();
@@ -119,54 +123,63 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            Trick();
-            DeleteOrdered();
+            Trick();            
             stopButton.Enabled = false;
-            startButton.Enabled = true;
-            SaveResult();
+            startButton.Enabled = true;            
             labelRound.Text = "";
             round++;
         }
 
         private void Trick()
         {
-            Random rand = new Random();
-            int randInt = rand.Next(1, 9);
-            int Position = new int();
-            string tempStr;
-
-            if (TrickArray != null && TrickArray.Count > 0)
+            ArrayList Temp = new ArrayList();
+            if (TrickArray != null && TrickArray.Count > 10)
             {
-                for (int i = 0; i < Current.Count; i++)
+                // 先摇 TrickArray 里的数据，摇完为止
+                for (int i = 9; i >= 0; i--)
                 {
-                    if (Current[i].ToString() == TrickArray[0].ToString())
+                    Temp.Add(TrickArray[i]);
+                    CurrentArray.Remove(TrickArray[i]);
+                    TrickArray.RemoveAt(i);
+                }
+            }
+            else
+            {
+                // 如果 TrickArray 里的数据已经摇完，还不够一屏，则以 CurrentArray 里的补充
+                if (TrickArray != null && TrickArray.Count >0)
+                {
+                    int count = TrickArray.Count;
+                    for (int i = (count - 1); i >= 0; i--)
                     {
-                        Position = i;
-                        break;
+                        Temp.Add(TrickArray[i]);
+                        CurrentArray.Remove(TrickArray[i]);
+                        TrickArray.RemoveAt(i);
+                    }
+                    for (int i = (10 - count - 1); i >= 0; i--)
+                    {
+                        Temp.Add(CurrentArray[i]);
+                        CurrentArray.RemoveAt(i);
                     }
                 }
-                tempStr = Current[randInt].ToString();
-                Current[randInt] = Current[Position].ToString();
-                Current[Position] = tempStr;
-                TrickArray.RemoveAt(0);
-                AddLabel(Current);
+                else
+                {
+                    int count = CurrentArray.Count;
+                    if (count > 10)
+                    {
+                        count = 10;
+                    }
+                    for (int i = (count - 1); i >= 0; i--)
+                    {
+                        Temp.Add(CurrentArray[i]);
+                        CurrentArray.RemoveAt(i);
+                    }
+                }
             }
+            DisplayLabels(Temp);
+            SaveResult(Temp);
         }
 
-        private void DeleteOrdered() {             
-            int big = OriginPeopleAl.Count;
-            if (big > 10)
-            {
-                big = 10;
-            }
-            for(int i = 0; i < big; i++)
-            {
-                OriginPeopleAl.Remove(Current[i]);
-            }
-
-        }
-
-        private void AddLabel(ArrayList curr)
+        private void DisplayLabels(ArrayList curr)
         {
             Label[] labelControl = { label2, label3, label4, label5, label6, label7, label8, label9, label10, label11 };
             foreach(Label l in labelControl)
@@ -180,16 +193,16 @@ namespace WindowsFormsApp1
                 if (i == 9) { break; }
                 i++;
             }
+            
         }
 
-        private void SaveResult()
+        private void SaveResult(ArrayList Curr)
         {
             RocTools.WriteTXT("以下是第 " + round + " 轮摇号结果：\n",  @"d:\yaohao\result\" + filename + ".txt", FileMode.Append);
             int count = 0;
-            foreach (string str in Current)
+            foreach (string str in Curr)
             {
-                if (count++ > 9) break;
-
+                count++;
                 RocTools.WriteTXT(((round - 1) * 10 + count).ToString() + str + "\n", @"d:\yaohao\result\" + filename + ".txt", FileMode.Append);
             }
         }
