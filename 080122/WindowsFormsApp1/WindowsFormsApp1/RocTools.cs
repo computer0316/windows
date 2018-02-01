@@ -60,7 +60,10 @@ namespace WindowsFormsApp1
                 string line = streamReader.ReadLine();
                 while (line != null)
                 {
-                    arrayList.Add(line);
+                    if (line.Length > 1)
+                    {
+                        arrayList.Add(line);
+                    }
                     line = streamReader.ReadLine();
                 }
                 streamReader.Close();

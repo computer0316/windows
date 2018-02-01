@@ -49,6 +49,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.labelRound = new System.Windows.Forms.Label();
+            this.pringButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -71,7 +72,7 @@
             // 
             this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.startButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.startButton.Location = new System.Drawing.Point(1426, 930);
+            this.startButton.Location = new System.Drawing.Point(1420, 930);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(145, 56);
             this.startButton.TabIndex = 2;
@@ -150,7 +151,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(55, 206);
+            this.label2.Location = new System.Drawing.Point(158, 206);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(216, 48);
             this.label2.TabIndex = 8;
@@ -162,7 +163,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(55, 349);
+            this.label3.Location = new System.Drawing.Point(158, 349);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(216, 48);
             this.label3.TabIndex = 9;
@@ -174,7 +175,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(55, 492);
+            this.label4.Location = new System.Drawing.Point(158, 492);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(216, 48);
             this.label4.TabIndex = 10;
@@ -186,7 +187,7 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(55, 635);
+            this.label5.Location = new System.Drawing.Point(158, 635);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(216, 48);
             this.label5.TabIndex = 11;
@@ -198,7 +199,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(55, 778);
+            this.label6.Location = new System.Drawing.Point(158, 778);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(216, 48);
             this.label6.TabIndex = 12;
@@ -264,12 +265,25 @@
             this.labelRound.TabIndex = 17;
             this.labelRound.Text = "label12";
             // 
+            // pringButton
+            // 
+            this.pringButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pringButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.pringButton.Location = new System.Drawing.Point(1172, 930);
+            this.pringButton.Name = "pringButton";
+            this.pringButton.Size = new System.Drawing.Size(145, 56);
+            this.pringButton.TabIndex = 18;
+            this.pringButton.Text = "打印结果";
+            this.pringButton.UseVisualStyleBackColor = true;
+            this.pringButton.Click += new System.EventHandler(this.pringButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1900, 1020);
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.pringButton);
             this.Controls.Add(this.labelRound);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -320,6 +334,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label labelRound;
+        private System.Windows.Forms.Button pringButton;
     }
 }
 

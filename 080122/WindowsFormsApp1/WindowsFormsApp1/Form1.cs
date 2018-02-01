@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace WindowsFormsApp1
 {
@@ -38,8 +39,9 @@ namespace WindowsFormsApp1
             stopButton.Enabled = false;
             startButton.Visible = false;
             stopButton.Visible = false;
+            pringButton.Visible = false;
             
-            string title = "（测试版）" + RocTools.ReadTXT(@"d:\yaohao\data\title.txt");
+            string title = RocTools.ReadTXT(@"d:\yaohao\data\title.txt");
             label1.Text = title;
             label1.Parent = pictureBox1;
             
@@ -125,7 +127,15 @@ namespace WindowsFormsApp1
             Stop = true;
             Trick();            
             stopButton.Enabled = false;
-            startButton.Enabled = true;            
+            if (CurrentArray.Count > 0)
+            {
+                startButton.Enabled = true;
+            }
+            else
+            {
+                startButton.Enabled = false;
+                pringButton.Visible = true;
+            }
             labelRound.Text = "";
             round++;
         }
@@ -189,7 +199,7 @@ namespace WindowsFormsApp1
             int i = 0;
             foreach(string str in curr)
             {
-                labelControl[i].Text = ((round - 1) * 10 + i + 1).ToString() + curr[i].ToString().Replace("\t", " ");
+                labelControl[i].Text = ((round - 1) * 10 + i + 1).ToString() + " " + curr[i].ToString().Replace("\t", " ");
                 if (i == 9) { break; }
                 i++;
             }
@@ -203,7 +213,7 @@ namespace WindowsFormsApp1
             foreach (string str in Curr)
             {
                 count++;
-                RocTools.WriteTXT(((round - 1) * 10 + count).ToString() + str + "\n", @"d:\yaohao\result\" + filename + ".txt", FileMode.Append);
+                RocTools.WriteTXT(((round - 1) * 10 + count).ToString() + " " + str + "\n", @"d:\yaohao\result\" + filename + ".txt", FileMode.Append);
             }
         }
 
@@ -212,6 +222,19 @@ namespace WindowsFormsApp1
             Environment.Exit(0);
         }
 
+        private void pringButton_Click(object sender, EventArgs e)
+        {
+            Process pr = new Process();
 
+            pr.StartInfo.FileName = @"d:\yaohao\result\" + filename + ".txt";//文件全称-包括文件后缀
+
+            pr.StartInfo.CreateNoWindow = true;
+
+            pr.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+            pr.StartInfo.Verb = "Print";
+
+            pr.Start();
+        }
     }
 }
