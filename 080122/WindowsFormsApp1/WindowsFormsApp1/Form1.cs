@@ -236,5 +236,29 @@ namespace WindowsFormsApp1
 
             pr.Start();
         }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            Rectangle rect = new Rectangle();
+            rect = Screen.GetWorkingArea(this);
+            label11.Left = rect.Width / 2;
+            label7.Left = rect.Width / 2;
+            label8.Left = rect.Width / 2;
+            label9.Left = rect.Width / 2;
+            label10.Left = rect.Width / 2;
+
+            int height = (rect.Height - 260) / 5; 
+            label2.Top = height*2;
+            label7.Top = height*2;
+            label3.Top = height * 3;
+            label8.Top = height * 3;
+            label4.Top = height * 4;
+            label9.Top = height * 4;
+            label5.Top = height * 5;
+            label10.Top = height * 5;
+            label6.Top = height * 6;
+            label11.Top = height * 6;
+
+        }
     }
 }
