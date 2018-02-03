@@ -63,7 +63,7 @@
             this.label1.ForeColor = System.Drawing.Color.Gold;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1386, 160);
+            this.label1.Size = new System.Drawing.Size(1372, 160);
             this.label1.TabIndex = 0;
             this.label1.Text = "莱恩公司摇号软件";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -72,7 +72,7 @@
             // 
             this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.startButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.startButton.Location = new System.Drawing.Point(906, 698);
+            this.startButton.Location = new System.Drawing.Point(892, 690);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(145, 56);
             this.startButton.TabIndex = 2;
@@ -84,7 +84,7 @@
             // 
             this.stopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.stopButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.stopButton.Location = new System.Drawing.Point(1154, 698);
+            this.stopButton.Location = new System.Drawing.Point(1140, 690);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(145, 56);
             this.stopButton.TabIndex = 3;
@@ -98,7 +98,7 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1386, 788);
+            this.pictureBox1.Size = new System.Drawing.Size(1372, 780);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
@@ -126,7 +126,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(108, 48);
+            this.pictureBox2.Location = new System.Drawing.Point(43, 41);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(179, 73);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -255,11 +255,13 @@
             // 
             // labelRound
             // 
+            this.labelRound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelRound.AutoSize = true;
             this.labelRound.BackColor = System.Drawing.Color.Transparent;
             this.labelRound.Font = new System.Drawing.Font("宋体", 42F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelRound.ForeColor = System.Drawing.Color.White;
-            this.labelRound.Location = new System.Drawing.Point(695, 930);
+            this.labelRound.Location = new System.Drawing.Point(171, 690);
             this.labelRound.Name = "labelRound";
             this.labelRound.Size = new System.Drawing.Size(220, 56);
             this.labelRound.TabIndex = 17;
@@ -269,7 +271,7 @@
             // 
             this.pringButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pringButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.pringButton.Location = new System.Drawing.Point(658, 698);
+            this.pringButton.Location = new System.Drawing.Point(644, 690);
             this.pringButton.Name = "pringButton";
             this.pringButton.Size = new System.Drawing.Size(145, 56);
             this.pringButton.TabIndex = 18;
@@ -281,7 +283,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1386, 788);
+            this.ClientSize = new System.Drawing.Size(1372, 780);
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.pringButton);
             this.Controls.Add(this.labelRound);

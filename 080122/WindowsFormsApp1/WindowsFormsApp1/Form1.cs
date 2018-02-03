@@ -47,7 +47,7 @@ namespace WindowsFormsApp1
             
             pictureBox2.BackgroundImage = Image.FromFile(@"d:\yaohao\data\logo.jpg");
             pictureBox2.Size = new Size(120, 90);
-            pictureBox2.Location = new Point(280, 30);            
+            pictureBox2.Location = new Point(80, 30);            
             pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox2.Show();
 
@@ -247,17 +247,18 @@ namespace WindowsFormsApp1
             label9.Left = rect.Width / 2;
             label10.Left = rect.Width / 2;
 
-            int height = (rect.Height - 260) / 5; 
-            label2.Top = height*2;
-            label7.Top = height*2;
-            label3.Top = height * 3;
-            label8.Top = height * 3;
-            label4.Top = height * 4;
-            label9.Top = height * 4;
-            label5.Top = height * 5;
-            label10.Top = height * 5;
-            label6.Top = height * 6;
-            label11.Top = height * 6;
+            int height = rect.Height / 7;
+            label2.Top = 170;
+            label3.Top = label2.Top + height;
+            label4.Top = label3.Top + height;
+            label5.Top = label4.Top + height;
+            label6.Top = label5.Top + height;
+
+            label7.Top = 170;
+            label8.Top = label7.Top + height;
+            label9.Top = label8.Top + height;
+            label10.Top = label9.Top + height;
+            label11.Top = label10.Top + height;
 
         }
     }
