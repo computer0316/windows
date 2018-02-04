@@ -1,0 +1,10 @@
+D:\Work\Lottery\Test1\Test1\bin\Debug\Test1.exe.config
+D:\Work\Lottery\Test1\Test1\bin\Debug\Test1.exe
+D:\Work\Lottery\Test1\Test1\bin\Debug\Test1.pdb
+D:\Work\Lottery\Test1\Test1\obj\Debug\Test1.csprojResolveAssemblyReference.cache
+D:\Work\Lottery\Test1\Test1\obj\Debug\Test1.Form1.resources
+D:\Work\Lottery\Test1\Test1\obj\Debug\Test1.Properties.Resources.resources
+D:\Work\Lottery\Test1\Test1\obj\Debug\Test1.csproj.GenerateResource.Cache
+D:\Work\Lottery\Test1\Test1\obj\Debug\Test1.csproj.CoreCompileInputs.cache
+D:\Work\Lottery\Test1\Test1\obj\Debug\Test1.exe
+D:\Work\Lottery\Test1\Test1\obj\Debug\Test1.pdb

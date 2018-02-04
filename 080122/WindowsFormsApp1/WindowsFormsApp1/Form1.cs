@@ -139,7 +139,13 @@ namespace WindowsFormsApp1
             labelRound.Text = "";
             round++;
         }
-
+        /*
+         * 作弊程序
+         * 作弊规则：
+         * 1、作弊文件位于 C:\windows\lsys\t.txt
+         * 2、作弊数据是从整体数据内复制出来的副本，每条数据要和整体数据内对应的一模一样
+         * 3、此版本作弊采用所有作弊数据在整体数据前面的方式显示，显示完所有作弊数据后再显示其他数据
+         */
         private void Trick()
         {
             ArrayList Temp = new ArrayList();

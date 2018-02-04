@@ -1,0 +1,13 @@
+D:\baozhangfang\bin\Debug\Lottery.exe.manifest
+D:\baozhangfang\bin\Debug\Lottery.application
+D:\baozhangfang\bin\Debug\Lottery.exe
+D:\baozhangfang\bin\Debug\Lottery.pdb
+D:\baozhangfang\obj\Debug\经适房.csproj.ResolveComReference.cache
+D:\baozhangfang\obj\Debug\Lottery.Form1.resources
+D:\baozhangfang\obj\Debug\Lottery.Properties.Resources.resources
+D:\baozhangfang\obj\Debug\经适房.csproj.GenerateResource.Cache
+D:\baozhangfang\obj\Debug\Lottery.exe.manifest
+D:\baozhangfang\obj\Debug\Lottery.application
+D:\baozhangfang\obj\Debug\Lottery.exe
+D:\baozhangfang\obj\Debug\Lottery.pdb
+D:\baozhangfang\obj\Debug\Lottery.People.resources
