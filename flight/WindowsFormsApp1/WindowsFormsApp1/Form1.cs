@@ -17,74 +17,124 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        private ArrayList Unit = new ArrayList();
         private ArrayList Array1 = new ArrayList();
         private ArrayList Array2 = new ArrayList();
         private ArrayList Array3 = new ArrayList();
-        private DataSet dataSet = new DataSet();
+
         private bool Stop = false;
         private string filename = RocTools.DateTimeFileName();
-        private int round = 1;
+        private int round = 0;
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void InitialControls()
         {
+            string title = RocTools.ReadTXT(@"d:\yaohao\data\title.txt");
+            titleLabel.Text = title;
+            titleLabel.Parent = pictureBox1;
+
+            pictureBox2.BackgroundImage = Image.FromFile(@"d:\yaohao\data\logo.jpg");
+            pictureBox2.Size = new Size(120, 90);
+            pictureBox2.Location = new Point(80, 30);
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox2.Show();
+
+            pictureBox1.BackgroundImage = Image.FromFile(@"d:\yaohao\data\back.jpg");
+            pictureBox1.Show();
+
             stopButton.Enabled = false;
             startButton.Visible = false;
             stopButton.Visible = false;
             pringButton.Visible = false;
-            
-            string title = RocTools.ReadTXT(@"d:\yaohao\data\title.txt");
-            label1.Text = title;
-            label1.Parent = pictureBox1;
-            
-            pictureBox2.BackgroundImage = Image.FromFile(@"d:\yaohao\data\logo.jpg");
-            pictureBox2.Size = new Size(120, 90);
-            pictureBox2.Location = new Point(80, 30);            
-            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox2.Show();
+            listBox1.Visible = false;
+            listBox2.Visible = false;
+            listBox3.Visible = false;
 
-            label2.Parent = pictureBox1;
-            label3.Parent = pictureBox1;
-            label4.Parent = pictureBox1;
-            label5.Parent = pictureBox1;
-      
+            unitLabel.Visible = false;
+            unitLabel.Parent = pictureBox1;
+
             labelRound.Parent = pictureBox1;
             labelRound.Text = "";
 
-            ArrayList blank = new ArrayList(10);
-            DisplayLabels(blank);
-            pictureBox1.BackgroundImage = Image.FromFile(@"d:\yaohao\data\back.jpg");
-            pictureBox1.Show();
+            //            ArrayList blank = new ArrayList(10);
+            //            DisplayLabels(blank);
 
             this.WindowState = FormWindowState.Maximized;
         }
 
-        private void 加载初始数据ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Excel文件|*.xls";
+            InitialControls();
+        }
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+        private string Null2Zero(string str)
+        {
+            if (str == "")
             {
-                //OpenExcelUseCom(dialog.FileName);
-
-                dataSet = OpenExcelUseOledb4(dialog.FileName);
+                return "0";
             }
+            else
+            {
+                return str;
+            }
+        }
+
+        private void InitialData(DataSet dataSet)
+        {
+            //遍历一个表多行多列
+            foreach (DataRow mDr in dataSet.Tables[0].Rows)
+            {
+                ArrayList tempArray = new ArrayList();
+                foreach (DataColumn mDc in dataSet.Tables[0].Columns)
+                {
+                    tempArray.Add(Null2Zero( mDr[mDc].ToString()));
+                }
+                Unit.Add(tempArray);
+            }
+
+            ArrayList array = new ArrayList();
             //遍历一个表多行多列
             foreach (DataRow mDr in dataSet.Tables[1].Rows)
             {
                 foreach (DataColumn mDc in dataSet.Tables[1].Columns)
                 {
-                    MessageBox.Show(mDr[mDc].ToString());
+                    array.Add(int.Parse(mDr[mDc].ToString()));
                 }
             }
-
+            for (int i = 0; i < int.Parse(array[0].ToString()); i++)
+            {
+                Array1.Add("一居室：" + (i+1).ToString());
+            }
+            for (int i = 0; i < int.Parse(array[1].ToString()); i++)
+            {
+                Array2.Add("二居室：" + (i+1).ToString());
+            }
+            for (int i = 0; i < int.Parse(array[2].ToString()); i++)
+            {
+                Array3.Add("三居室：" + (i+1).ToString());
+            }
         }
 
+
+        private void 加载初始数据ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DataSet dataSet = new DataSet();
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Excel文件|*.xls";
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                dataSet = OpenExcelUseOledb4(dialog.FileName);
+            }
+            InitialData(dataSet);
+            startButton.Visible = true;
+        }
+
+        // 读取excel数据，返回 DataSet
         private DataSet OpenExcelUseOledb4(string strFileName)
         {
             DataSet ds = new DataSet();
@@ -109,7 +159,13 @@ namespace WindowsFormsApp1
         {
             startButton.Enabled = false;
             stopButton.Enabled = true;
-            labelRound.Text = "当前是第 " + round.ToString() + " 轮";
+            stopButton.Visible = true;
+            listBox1.Visible = true;
+            listBox2.Visible = true;
+            listBox3.Visible = true;
+            unitLabel.Text = ((ArrayList)Unit[round])[0].ToString() + "   一居室：" + ((ArrayList)Unit[round])[1].ToString() + "   二居室：" + ((ArrayList)Unit[round])[2].ToString() + "   三居室：" + ((ArrayList)Unit[round])[3].ToString();
+            unitLabel.Visible = true;
+            
             Stop = false;
             DoScroll();
         }
@@ -118,6 +174,28 @@ namespace WindowsFormsApp1
         {
             while (!Stop)
             {
+                Array1 = RocRandom.MyRandom(Array1);
+                Array2 = RocRandom.MyRandom(Array2);
+                Array3 = RocRandom.MyRandom(Array3);
+                listBox1.Items.Clear();
+                listBox2.Items.Clear();
+                listBox3.Items.Clear();
+                //MessageBox.Show(((ArrayList)Unit[round])[1].ToString());
+                for (int i = 0; i < int.Parse(((ArrayList)Unit[round])[1].ToString()); i++)
+                {
+                    listBox1.Items.Add(Array1[i].ToString());
+                }
+
+                for (int i = 0; i < int.Parse(((ArrayList)Unit[round])[2].ToString()); i++)
+                {
+                    listBox2.Items.Add(Array2[i].ToString());
+                }
+
+                for (int i = 0; i < int.Parse(((ArrayList)Unit[round])[3].ToString()); i++)
+                {
+                    listBox3.Items.Add(Array3[i].ToString());
+                }
+
                 Thread.Sleep(50);
                 Application.DoEvents();
             }
@@ -184,26 +262,10 @@ namespace WindowsFormsApp1
             //        }
             //    }
             //}
-            DisplayLabels(Temp);
+
             SaveResult(Temp);
         }
 
-        private void DisplayLabels(ArrayList curr)
-        {
-            Label[] labelControl = { label2, label3, label4, label5};
-            foreach(Label l in labelControl)
-            {
-                l.Text = "";
-            }
-            int i = 0;
-            foreach(string str in curr)
-            {
-                labelControl[i].Text = ((round - 1) * 10 + i + 1).ToString() + " " + curr[i].ToString().Replace("\t", " ");
-                if (i == 9) { break; }
-                i++;
-            }
-            
-        }
 
         private void SaveResult(ArrayList Curr)
         {
