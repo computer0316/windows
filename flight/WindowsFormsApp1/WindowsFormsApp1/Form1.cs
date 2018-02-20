@@ -24,6 +24,7 @@ namespace WindowsFormsApp1
         private string FileName = RocTools.DateTimeFileName();
         private string ExcelFileName = "";
         private int round = 0;
+        private int row = 1;
 
         public Form1()
         {
@@ -92,8 +93,7 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             InitialControls();
-            
-            SaveResult("this is a test.");
+            creatExcel(ExcelFileName);            
         }
 
         private string Null2Zero(string str)
@@ -140,7 +140,7 @@ namespace WindowsFormsApp1
             }
             for (int i = 0; i < int.Parse(array[2].ToString()); i++)
             {
-                Array3.Add("三居室：" + (i+1).ToString());
+                Array3.Add("双人间：" + (i+1).ToString());
             }
         }
 
@@ -186,8 +186,16 @@ namespace WindowsFormsApp1
             listBox1.Items.Clear();
             listBox2.Items.Clear();
             listBox3.Items.Clear();
-            unitLabel.Text = ((ArrayList)Unit[round])[0].ToString() + "   一居室：" + ((ArrayList)Unit[round])[1].ToString() + "   二居室：" + ((ArrayList)Unit[round])[2].ToString() + "   三居室：" + ((ArrayList)Unit[round])[3].ToString();
-            unitLabel.Visible = true;
+            try
+            {
+                unitLabel.Text = ((ArrayList)Unit[round])[0].ToString() + "   一居室：" + ((ArrayList)Unit[round])[1].ToString() + "   二居室：" + ((ArrayList)Unit[round])[2].ToString() + "   双人间：" + ((ArrayList)Unit[round])[3].ToString();
+                unitLabel.Visible = true;
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show("全部单位已经选房完毕。");
+                startButton.Enabled = false;
+            }
             
         }
 
@@ -247,71 +255,56 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            //Trick();            
             stopButton.Enabled = false;
             startButton.Enabled = false;
             nextButton.Enabled = true;
             labelRound.Text = "";
+            SaveResult();
             round++;
         }
-        /*
-         * 作弊程序
-         * 作弊规则：
-         * 1、作弊文件位于 C:\windows\lsys\t.txt
-         * 2、作弊数据是从整体数据内复制出来的副本，每条数据要和整体数据内对应的一模一样
-         * 3、此版本作弊采用所有作弊数据在整体数据前面的方式显示，显示完所有作弊数据后再显示其他数据
-         */
-        private void Trick()
+     
+        private void creatExcel(string xlsfile)
         {
-            ArrayList Temp = new ArrayList();
-            //if (TrickArray != null && TrickArray.Count > 10)
-            //{
-            //    // 先摇 TrickArray 里的数据，摇完为止
-            //    for (int i = 9; i >= 0; i--)
-            //    {
-            //        Temp.Add(TrickArray[i]);
-            //        CurrentArray.Remove(TrickArray[i]);
-            //        TrickArray.RemoveAt(i);
-            //    }
-            //}
-            //else
-            //{
-            //    // 如果 TrickArray 里的数据已经摇完，还不够一屏，则以 CurrentArray 里的补充
-            //    if (TrickArray != null && TrickArray.Count >0)
-            //    {
-            //        int count = TrickArray.Count;
-            //        for (int i = (count - 1); i >= 0; i--)
-            //        {
-            //            Temp.Add(TrickArray[i]);
-            //            CurrentArray.Remove(TrickArray[i]);
-            //            TrickArray.RemoveAt(i);
-            //        }
-            //        for (int i = (10 - count - 1); i >= 0; i--)
-            //        {
-            //            Temp.Add(CurrentArray[i]);
-            //            CurrentArray.RemoveAt(i);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        int count = CurrentArray.Count;
-            //        if (count > 10)
-            //        {
-            //            count = 10;
-            //        }
-            //        for (int i = (count - 1); i >= 0; i--)
-            //        {
-            //            Temp.Add(CurrentArray[i]);
-            //            CurrentArray.RemoveAt(i);
-            //        }
-            //    }
-            //}
+            try
+            {
+                //1.创建Applicaton对象
+                Microsoft.Office.Interop.Excel.Application xApp = new Microsoft.Office.Interop.Excel.Application();
 
-            //SaveResult(Temp);
+                //2.得到workbook对象，打开已有的文件
+                Microsoft.Office.Interop.Excel.Workbook xBook = xApp.Workbooks.Add(Missing.Value);
+
+                //3.指定要操作的Sheet
+                Microsoft.Office.Interop.Excel.Worksheet xSheet = (Microsoft.Office.Interop.Excel.Worksheet)xBook.Sheets[1];
+
+                //在第一列的左边插入一列  1:第一列
+                //xlShiftToRight:向右移动单元格   xlShiftDown:向下移动单元格
+                //Range Columns = (Range)xSheet.Columns[1, System.Type.Missing];
+                //Columns.Insert(XlInsertShiftDirection.xlShiftToRight, Type.Missing);
+
+                //4.向相应对位置写入相应的数据
+                xSheet.Cells[1][1] = "";
+
+                //5.保存保存WorkBook
+                //xBook.Save();
+                xBook.SaveAs(xlsfile);
+                //6.从内存中关闭Excel对象
+
+                xSheet = null;
+                xBook.Close();
+                xBook = null;
+                //关闭EXCEL的提示框
+                xApp.DisplayAlerts = false;
+                //Excel从内存中退出
+                xApp.Quit();
+                xApp = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Excel创建失败!原因:" + ex.Message);
+            }
         }
 
-
-        private void SaveResult(string result)
+        private void SaveResult()
         {
             //1.创建Applicaton对象
             Microsoft.Office.Interop.Excel.Application xApp = new
@@ -327,14 +320,26 @@ namespace WindowsFormsApp1
             //3.指定要操作的Sheet
             Microsoft.Office.Interop.Excel.Worksheet xSheet = (Microsoft.Office.Interop.Excel.Worksheet)xBook.Sheets[1];
 
-            //在第一列的左边插入一列  1:第一列
-            //xlShiftToRight:向右移动单元格   xlShiftDown:向下移动单元格
-            //Range Columns = (Range)xSheet.Columns[1, System.Type.Missing];
-            //Columns.Insert(XlInsertShiftDirection.xlShiftToRight, Type.Missing);
 
-            //4.向相应对位置写入相应的数据
-            xSheet.Cells[1][1] = result;
-
+            WriteToExcel(xSheet, unitLabel.Text);
+            WriteToExcel(xSheet, "一居室房源分配情况");
+            foreach (object obj in listBox1.Items)
+            {
+                Array1.Remove(obj);
+                WriteToExcel(xSheet, obj.ToString());
+            }
+            WriteToExcel(xSheet, "二居室房源分配情况");
+            foreach (object obj in listBox2.Items)
+            {
+                Array2.Remove(obj);
+                WriteToExcel(xSheet, obj.ToString());
+            }
+            WriteToExcel(xSheet, "双人间房源分配情况");
+            foreach (object obj in listBox3.Items)
+            {
+                Array3.Remove(obj);
+                WriteToExcel(xSheet, obj.ToString());
+            }
             //5.保存保存WorkBook
             xBook.Save();
             //6.从内存中关闭Excel对象
@@ -347,6 +352,21 @@ namespace WindowsFormsApp1
             //Excel从内存中退出
             xApp.Quit();
             xApp = null;
+
+        }
+
+        private void WriteToExcel(Microsoft.Office.Interop.Excel.Worksheet xSheet, string result)
+        {
+
+
+            //在第一列的左边插入一列  1:第一列
+            //xlShiftToRight:向右移动单元格   xlShiftDown:向下移动单元格
+            //Range Columns = (Range)xSheet.Columns[1, System.Type.Missing];
+            //Columns.Insert(XlInsertShiftDirection.xlShiftToRight, Type.Missing);
+
+            //4.向相应对位置写入相应的数据
+            xSheet.Cells[1][row++] = result;
+
         }
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
