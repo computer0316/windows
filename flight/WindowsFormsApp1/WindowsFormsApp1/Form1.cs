@@ -50,6 +50,10 @@ namespace WindowsFormsApp1
             startButton.Visible = false;
             stopButton.Visible = false;
             pringButton.Visible = false;
+            listBox1.Parent = pictureBox1;
+            listBox2.Parent = pictureBox1;
+            listBox3.Parent = pictureBox1;
+
             listBox1.Visible = false;
             listBox2.Visible = false;
             listBox3.Visible = false;
@@ -69,9 +73,15 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             InitialControls();
-        }
+            DataSet dataSet = new DataSet();
+            dataSet = OpenExcelUseOledb4(@"D:\Work\Windows\flight\person.xls");
 
-        private string Null2Zero(string str)
+            InitialData(dataSet);
+            startButton.Visible = true;
+
+        } 
+
+    private string Null2Zero(string str)
         {
             if (str == "")
             {
@@ -172,31 +182,40 @@ namespace WindowsFormsApp1
 
         private void DoScroll()
         {
+            int count1 = int.Parse(((ArrayList)Unit[round])[1].ToString());
+            int count2 = int.Parse(((ArrayList)Unit[round])[2].ToString());
+            int count3 = int.Parse(((ArrayList)Unit[round])[3].ToString());
             while (!Stop)
             {
                 Array1 = RocRandom.MyRandom(Array1);
                 Array2 = RocRandom.MyRandom(Array2);
                 Array3 = RocRandom.MyRandom(Array3);
+                listBox1.Visible = false;
+                listBox2.Visible = false;
+                listBox3.Visible = false;
                 listBox1.Items.Clear();
                 listBox2.Items.Clear();
                 listBox3.Items.Clear();
-                //MessageBox.Show(((ArrayList)Unit[round])[1].ToString());
-                for (int i = 0; i < int.Parse(((ArrayList)Unit[round])[1].ToString()); i++)
+                count1 = 10;
+                for (int i = 0; i < count1; i++)
                 {
                     listBox1.Items.Add(Array1[i].ToString());
                 }
-
-                for (int i = 0; i < int.Parse(((ArrayList)Unit[round])[2].ToString()); i++)
-                {
-                    listBox2.Items.Add(Array2[i].ToString());
-                }
-
-                for (int i = 0; i < int.Parse(((ArrayList)Unit[round])[3].ToString()); i++)
-                {
-                    listBox3.Items.Add(Array3[i].ToString());
-                }
-
-                Thread.Sleep(50);
+                listBox1.Show();
+                
+                //for (int i = 0; i < count2; i++)
+                //{
+                //    listBox2.Items.Add(Array2[i].ToString());
+                //}
+                //listBox2.Show();
+                
+                //for (int i = 0; i < count3; i++)
+                //{
+                //    listBox3.Items.Add(Array3[i].ToString());
+                //}              
+                
+                //listBox3.Show();
+                Thread.Sleep(30);
                 Application.DoEvents();
             }
         }
