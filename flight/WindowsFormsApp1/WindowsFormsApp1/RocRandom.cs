@@ -12,7 +12,7 @@ namespace WindowsFormsApp1
         public static ArrayList MyRandom(ArrayList oldArrayList)
         {
             Random rand = new Random();
-            Random r = new Random(rand.Next(0, 100000000));
+            Random r = new Random(rand.Next(0, 100));
 
             ArrayList newArrayList = new ArrayList();
             int alCount = oldArrayList.Count;

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
+using System.Collections;
 using System.Data;
 using System.Data.OleDb;
-using System.Collections;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -23,7 +20,9 @@ namespace WindowsFormsApp1
         private ArrayList Array3 = new ArrayList();
 
         private bool Stop = false;
-        private string filename = RocTools.DateTimeFileName();
+        private string FilePath = System.AppDomain.CurrentDomain.BaseDirectory;
+        private string FileName = RocTools.DateTimeFileName();
+        private string ExcelFileName = "";
         private int round = 0;
 
         public Form1()
@@ -33,19 +32,42 @@ namespace WindowsFormsApp1
 
         private void InitialControls()
         {
-            string title = RocTools.ReadTXT(@"d:\yaohao\data\title.txt");
+            string title = "";
+            try
+            {
+                title = "（测试版）" + RocTools.ReadTXT(FilePath + "title.txt");
+            }
+            catch (FileNotFoundException ex)
+            {
+                title = "廊坊市莱恩网络科技有限公司（测试版）";
+            }
+            ExcelFileName = FilePath + "result.xlsx";
             titleLabel.Text = title;
             titleLabel.Parent = pictureBox1;
+            try
+            {
+                pictureBox2.BackgroundImage = Image.FromFile(FilePath + "logo.jpg");
+            }
+            catch (FileNotFoundException ex)
+            {
 
-            pictureBox2.BackgroundImage = Image.FromFile(@"d:\yaohao\data\logo.jpg");
+            }
             pictureBox2.Size = new Size(120, 90);
-            pictureBox2.Location = new Point(80, 30);
+            pictureBox2.Location = new System.Drawing.Point(80, 30);
             pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox2.Show();
 
-            pictureBox1.BackgroundImage = Image.FromFile(@"d:\yaohao\data\back.jpg");
-            pictureBox1.Show();
+            try
+            {
+               pictureBox1.BackgroundImage = Image.FromFile(FilePath + "back.jpg");
+            }
+            catch (FileNotFoundException ex)
+            {
 
+            }
+            
+            pictureBox1.Show();
+            nextButton.Visible = false;
             stopButton.Enabled = false;
             startButton.Visible = false;
             stopButton.Visible = false;
@@ -64,24 +86,17 @@ namespace WindowsFormsApp1
             labelRound.Parent = pictureBox1;
             labelRound.Text = "";
 
-            //            ArrayList blank = new ArrayList(10);
-            //            DisplayLabels(blank);
-
             this.WindowState = FormWindowState.Maximized;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             InitialControls();
-            DataSet dataSet = new DataSet();
-            dataSet = OpenExcelUseOledb4(@"D:\Work\Windows\flight\person.xls");
+            
+            SaveResult("this is a test.");
+        }
 
-            InitialData(dataSet);
-            startButton.Visible = true;
-
-        } 
-
-    private string Null2Zero(string str)
+        private string Null2Zero(string str)
         {
             if (str == "")
             {
@@ -141,7 +156,7 @@ namespace WindowsFormsApp1
                 dataSet = OpenExcelUseOledb4(dialog.FileName);
             }
             InitialData(dataSet);
-            startButton.Visible = true;
+            nextButton.Visible = true;
         }
 
         // 读取excel数据，返回 DataSet
@@ -164,17 +179,27 @@ namespace WindowsFormsApp1
             return ds;
         }
 
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            startButton.Visible = true;
+            startButton.Enabled = true;
+            listBox1.Items.Clear();
+            listBox2.Items.Clear();
+            listBox3.Items.Clear();
+            unitLabel.Text = ((ArrayList)Unit[round])[0].ToString() + "   一居室：" + ((ArrayList)Unit[round])[1].ToString() + "   二居室：" + ((ArrayList)Unit[round])[2].ToString() + "   三居室：" + ((ArrayList)Unit[round])[3].ToString();
+            unitLabel.Visible = true;
+            
+        }
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+            nextButton.Enabled = false; 
             startButton.Enabled = false;
             stopButton.Enabled = true;
             stopButton.Visible = true;
             listBox1.Visible = true;
             listBox2.Visible = true;
             listBox3.Visible = true;
-            unitLabel.Text = ((ArrayList)Unit[round])[0].ToString() + "   一居室：" + ((ArrayList)Unit[round])[1].ToString() + "   二居室：" + ((ArrayList)Unit[round])[2].ToString() + "   三居室：" + ((ArrayList)Unit[round])[3].ToString();
-            unitLabel.Visible = true;
             
             Stop = false;
             DoScroll();
@@ -190,42 +215,42 @@ namespace WindowsFormsApp1
                 Array1 = RocRandom.MyRandom(Array1);
                 Array2 = RocRandom.MyRandom(Array2);
                 Array3 = RocRandom.MyRandom(Array3);
+                Thread.Sleep(100);
                 listBox1.Visible = false;
                 listBox2.Visible = false;
                 listBox3.Visible = false;
                 listBox1.Items.Clear();
                 listBox2.Items.Clear();
                 listBox3.Items.Clear();
-                count1 = 10;
+
                 for (int i = 0; i < count1; i++)
                 {
                     listBox1.Items.Add(Array1[i].ToString());
                 }
                 listBox1.Show();
-                
-                //for (int i = 0; i < count2; i++)
-                //{
-                //    listBox2.Items.Add(Array2[i].ToString());
-                //}
-                //listBox2.Show();
-                
-                //for (int i = 0; i < count3; i++)
-                //{
-                //    listBox3.Items.Add(Array3[i].ToString());
-                //}              
-                
-                //listBox3.Show();
-                Thread.Sleep(30);
-                Application.DoEvents();
+
+                for (int i = 0; i < count2; i++)
+                {
+                    listBox2.Items.Add(Array2[i].ToString());
+                }
+                listBox2.Show();
+
+                for (int i = 0; i < count3; i++)
+                {
+                    listBox3.Items.Add(Array3[i].ToString());
+                }
+                listBox3.Show();
+                System.Windows.Forms.Application.DoEvents();
             }
         }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            Trick();            
+            //Trick();            
             stopButton.Enabled = false;
-            startButton.Enabled = true;
+            startButton.Enabled = false;
+            nextButton.Enabled = true;
             labelRound.Text = "";
             round++;
         }
@@ -282,19 +307,46 @@ namespace WindowsFormsApp1
             //    }
             //}
 
-            SaveResult(Temp);
+            //SaveResult(Temp);
         }
 
 
-        private void SaveResult(ArrayList Curr)
+        private void SaveResult(string result)
         {
-            RocTools.WriteTXT("以下是第 " + round + " 轮摇号结果：\n",  @"d:\yaohao\result\" + filename + ".txt", FileMode.Append);
-            int count = 0;
-            foreach (string str in Curr)
-            {
-                count++;
-                RocTools.WriteTXT(((round - 1) * 10 + count).ToString() + " " + str + "\n", @"d:\yaohao\result\" + filename + ".txt", FileMode.Append);
-            }
+            //1.创建Applicaton对象
+            Microsoft.Office.Interop.Excel.Application xApp = new
+
+            Microsoft.Office.Interop.Excel.Application();
+
+            //2.得到workbook对象，打开已有的文件
+            Microsoft.Office.Interop.Excel.Workbook xBook = xApp.Workbooks.Open(ExcelFileName,
+                                  Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+                                  Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+                                  Missing.Value, Missing.Value, Missing.Value, Missing.Value);
+
+            //3.指定要操作的Sheet
+            Microsoft.Office.Interop.Excel.Worksheet xSheet = (Microsoft.Office.Interop.Excel.Worksheet)xBook.Sheets[1];
+
+            //在第一列的左边插入一列  1:第一列
+            //xlShiftToRight:向右移动单元格   xlShiftDown:向下移动单元格
+            //Range Columns = (Range)xSheet.Columns[1, System.Type.Missing];
+            //Columns.Insert(XlInsertShiftDirection.xlShiftToRight, Type.Missing);
+
+            //4.向相应对位置写入相应的数据
+            xSheet.Cells[1][1] = result;
+
+            //5.保存保存WorkBook
+            xBook.Save();
+            //6.从内存中关闭Excel对象
+
+            xSheet = null;
+            xBook.Close();
+            xBook = null;
+            //关闭EXCEL的提示框
+            xApp.DisplayAlerts = false;
+            //Excel从内存中退出
+            xApp.Quit();
+            xApp = null;
         }
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -306,7 +358,7 @@ namespace WindowsFormsApp1
         {
             Process pr = new Process();
 
-            pr.StartInfo.FileName = @"d:\yaohao\result\" + filename + ".txt";//文件全称-包括文件后缀
+            pr.StartInfo.FileName = @"d:\yaohao\result\" + FileName + ".txt";//文件全称-包括文件后缀
 
             pr.StartInfo.CreateNoWindow = true;
 
@@ -317,31 +369,29 @@ namespace WindowsFormsApp1
             pr.Start();
         }
 
-        //private void Form1_Resize(object sender, EventArgs e)
-        //{
-        //    Rectangle rect = new Rectangle();
-        //    rect = Screen.GetWorkingArea(this);
-        //    label11.Left = rect.Width / 2;
-        //    label7.Left = rect.Width / 2;
-        //    label8.Left = rect.Width / 2;
-        //    label9.Left = rect.Width / 2;
-        //    label10.Left = rect.Width / 2;
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            System.Drawing.Rectangle rect = new System.Drawing.Rectangle();
+            rect = Screen.GetWorkingArea(this);
+            int width = rect.Width;
+            int height = rect.Height;
+            listBox1.Width= (width-200)/ 3;
+            listBox2.Width = listBox1.Width;
+            listBox3.Width = listBox1.Width;
+            listBox1.Height = (height - 150 - 150 - 100);
+            listBox2.Height = listBox1.Height;
+            listBox3.Height = listBox2.Height;
 
-        //    int height = rect.Height / 7;
-        //    label2.Top = 170;
-        //    label3.Top = label2.Top + height;
-        //    label4.Top = label3.Top + height;
-        //    label5.Top = label4.Top + height;
-        //    label6.Top = label5.Top + height;
+            listBox1.Left = 50;
+            listBox2.Left = listBox1.Left + listBox1.Width + 50;
+            listBox3.Left = listBox2.Left + listBox2.Width + 50;
 
-        //    label7.Top = 170;
-        //    label8.Top = label7.Top + height;
-        //    label9.Top = label8.Top + height;
-        //    label10.Top = label9.Top + height;
-        //    label11.Top = label10.Top + height;
-
-        //}
-
+            
+            pictureBox1.Width = width;
+            pictureBox1.Height = height + 46;
+            pictureBox1.Left = 0;
+            pictureBox1.Top = 0;
+        }
 
     }
 }

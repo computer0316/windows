@@ -48,3 +48,4 @@ D:\Work\Windows\flight\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsA
 D:\Work\Windows\flight\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 D:\Work\Windows\flight\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 D:\Work\Windows\flight\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+D:\Work\Windows\flight\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.ResolveComReference.cache
