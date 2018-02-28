@@ -35,7 +35,7 @@ namespace WindowsFormsApp1
             {
                 title = "（测试版）" + RocTools.ReadTXT(CurrentPath + "title.txt");
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
                 title = "廊坊市莱恩网络科技有限公司（测试版）";
             }            
@@ -47,7 +47,7 @@ namespace WindowsFormsApp1
             {
                 pictureBox2.BackgroundImage = Image.FromFile(CurrentPath + "logo.jpg");
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
 
             }
@@ -61,7 +61,7 @@ namespace WindowsFormsApp1
             {
                pictureBox1.BackgroundImage = Image.FromFile(CurrentPath + "back.jpg");
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
 
             }            

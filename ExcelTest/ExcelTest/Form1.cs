@@ -19,8 +19,13 @@ namespace ExcelTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Excel excel = new Excel();
-            excel.creatExcel(@"d:\abc.xlsx");
+            axWindowsMediaPlayer1.settings.setMode("loop", true);
+            axWindowsMediaPlayer1.URL = @"d:\001.mp3";
+        }
+
+        private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
