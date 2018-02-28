@@ -30,7 +30,7 @@ namespace WindowsFormsApp1
             FileStream fs = new FileStream(path, fileMode);
             StreamWriter sw = new StreamWriter(fs);
             //开始写入
-            sw.Write(str);
+            sw.Write(str + "\r\n");
             //清空缓冲区
             sw.Flush();
             //关闭流
@@ -60,7 +60,7 @@ namespace WindowsFormsApp1
                 string line = streamReader.ReadLine();
                 while (line != null)
                 {
-                    if (line.Length > 1)
+                    if (line.Length > 0)
                     {
                         arrayList.Add(line);
                     }
@@ -86,7 +86,7 @@ namespace WindowsFormsApp1
             return newArrayList;
         }
 
-        // 连接两个 Arraylist
+        // 拼接两个 Arraylist，把两个 ArrayList 的每一个元素对应的拼接成一个元素
         public static ArrayList Merge(ArrayList Al1, ArrayList Al2)
         {
             // 找到两个数组中更长的那一个，把长度付给：AlCount
@@ -127,6 +127,7 @@ namespace WindowsFormsApp1
 
             return NewAl;
         }
+
 
         // 用于保存 ArrayList 类型的数据到一个文本文件
         public static void SaveArraylist(string filename, ArrayList al)
