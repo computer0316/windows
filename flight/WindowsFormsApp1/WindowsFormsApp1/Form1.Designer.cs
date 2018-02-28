@@ -43,10 +43,8 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.nextButton = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +53,7 @@
             this.titleLabel.BackColor = System.Drawing.Color.Transparent;
             this.titleLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.titleLabel.Font = new System.Drawing.Font("宋体", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.titleLabel.ForeColor = System.Drawing.Color.Gold;
+            this.titleLabel.ForeColor = System.Drawing.Color.Black;
             this.titleLabel.Location = new System.Drawing.Point(0, 0);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(1372, 160);
@@ -114,7 +112,7 @@
             this.unitLabel.AutoSize = true;
             this.unitLabel.BackColor = System.Drawing.Color.Transparent;
             this.unitLabel.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.unitLabel.ForeColor = System.Drawing.Color.White;
+            this.unitLabel.ForeColor = System.Drawing.Color.Black;
             this.unitLabel.Location = new System.Drawing.Point(78, 206);
             this.unitLabel.Name = "unitLabel";
             this.unitLabel.Size = new System.Drawing.Size(216, 48);
@@ -151,7 +149,7 @@
             // 
             this.listBox1.BackColor = System.Drawing.Color.Red;
             this.listBox1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listBox1.ForeColor = System.Drawing.Color.Gold;
+            this.listBox1.ForeColor = System.Drawing.Color.Black;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 21;
             this.listBox1.Location = new System.Drawing.Point(52, 294);
@@ -163,7 +161,7 @@
             // 
             this.listBox2.BackColor = System.Drawing.Color.Red;
             this.listBox2.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listBox2.ForeColor = System.Drawing.Color.Gold;
+            this.listBox2.ForeColor = System.Drawing.Color.Black;
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 21;
             this.listBox2.Location = new System.Drawing.Point(460, 294);
@@ -175,7 +173,7 @@
             // 
             this.listBox3.BackColor = System.Drawing.Color.Red;
             this.listBox3.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listBox3.ForeColor = System.Drawing.Color.Gold;
+            this.listBox3.ForeColor = System.Drawing.Color.Black;
             this.listBox3.FormattingEnabled = true;
             this.listBox3.ItemHeight = 21;
             this.listBox3.Location = new System.Drawing.Point(868, 294);
@@ -194,17 +192,6 @@
             this.nextButton.Text = "下一个单位";
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.logo1;
-            this.pictureBox2.ErrorImage = global::WindowsFormsApp1.Properties.Resources.logo1;
-            this.pictureBox2.Location = new System.Drawing.Point(43, 41);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(179, 73);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 6;
-            this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -232,7 +219,6 @@
             this.Controls.Add(this.pringButton);
             this.Controls.Add(this.labelRound);
             this.Controls.Add(this.unitLabel);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.startButton);
@@ -243,7 +229,6 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -259,7 +244,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 加载初始数据ToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label unitLabel;
         private System.Windows.Forms.Label labelRound;
         private System.Windows.Forms.Button pringButton;

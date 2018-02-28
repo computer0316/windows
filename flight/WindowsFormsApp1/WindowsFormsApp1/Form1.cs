@@ -36,27 +36,15 @@ namespace WindowsFormsApp1
             string title = "";
             try
             {
-                title = "（测试版）" + RocTools.ReadTXT(FilePath + "title.txt");
+                title = RocTools.ReadTXT(FilePath + "title.txt");
             }
             catch (FileNotFoundException ex)
             {
-                title = "廊坊市莱恩网络科技有限公司（测试版）";
+                title = "廊坊市莱恩网络科技有限公司";
             }
             ExcelFileName = FilePath + "result.xlsx";
             titleLabel.Text = title;
             titleLabel.Parent = pictureBox1;
-            try
-            {
-                pictureBox2.BackgroundImage = Image.FromFile(FilePath + "logo.jpg");
-            }
-            catch (FileNotFoundException ex)
-            {
-
-            }
-            pictureBox2.Size = new Size(120, 90);
-            pictureBox2.Location = new System.Drawing.Point(80, 30);
-            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox2.Show();
 
             try
             {
@@ -304,8 +292,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void SaveResult()
-        {
+        private void SaveResult()       {
             //1.创建Applicaton对象
             Microsoft.Office.Interop.Excel.Application xApp = new
 
