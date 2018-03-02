@@ -20,11 +20,27 @@ namespace WindowsFormsApp1
         private ArrayList CurrentArray = new ArrayList();
 
         private string CurrentPath = System.AppDomain.CurrentDomain.BaseDirectory;
+        private string SingleStartFileName = @"C:\lottery.txt";
         private int Round = 1;
 
         public Form1()
         {
             InitializeComponent();
+            SingleProgramLock();
+        }
+
+        // 控制程序单一运行
+        private void SingleProgramLock()
+        {
+            
+            if (File.Exists(SingleStartFileName))
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                RocTools.WriteTXT("摇号程序单一启动控制文件", SingleStartFileName, FileMode.Create);
+            }
         }
 
         private void InitialControls()
@@ -73,7 +89,8 @@ namespace WindowsFormsApp1
             stopButton.Enabled = false;            
             pringButton.Visible = false;
 
-            RoundLabel.Text = "当前是第 " + Round.ToString() + " 轮摇号";
+            //RoundLabel.Text = "当前是第 " + Round.ToString() + " 轮摇号";
+            RoundLabel.Text = "点击开始按钮启动当前摇号";
             RoundLabel.Parent = pictureBox1;
 
             // 清空所有 label
@@ -120,9 +137,11 @@ namespace WindowsFormsApp1
             if (ArrayA == null || ArrayB == null)
             {
                 MessageBox.Show("读取原始数据错误。");
-            }            
-
-            RocTools.WriteTXT("摇号结果文件 " + RocTools.DateTimeFileName(), CurrentPath + "result.txt", FileMode.Create);
+            }
+            string start = "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
+            start += " ".PadLeft(18, ' ') + "程序启动时间：" + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "\r\n\r\n\r\n";
+            start += "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
+            RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Append);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -131,27 +150,9 @@ namespace WindowsFormsApp1
             InitialData();
         }
 
-        private void 加载初始数据ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog
-            {
-                CheckFileExists = true,
-                CheckPathExists = true,
-                ValidateNames = true
-            };
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                CurrentArray = RocTools.File2Array(ofd.FileName);
-            }
-            
-            RocTools.WriteTXT("摇号结果：\n", CurrentPath + "摇号结果.txt", FileMode.Create);
-            startButton.Visible = true;
-            stopButton.Visible = true;
-        }
-
         private void StartButton_Click(object sender, EventArgs e)
         {
+            RoundLabel.Text = "点击停止产生摇号结果";
             startButton.Enabled = false;
             stopButton.Enabled = true;
             Stop = false;
@@ -161,8 +162,7 @@ namespace WindowsFormsApp1
         private void nextButton_Click(object sender, EventArgs e)
         {
             Round++;
-            RoundLabel.Text = "当前是第 " + Round.ToString() + " 轮摇号";
-
+            RoundLabel.Text = "点击开始按钮启动当前摇号";
             nextButton.Enabled = false;
             startButton.Enabled = true;
             DisplayLabels(null);
@@ -226,6 +226,7 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
+            RoundLabel.Text = "摇号结果：";
             Trick();
             SaveResult();
             DeleteCurrentArray();
@@ -276,16 +277,17 @@ namespace WindowsFormsApp1
 
         private void SaveResult()
         {
-            RocTools.WriteTXT(RoundLabel.Text, CurrentPath + "result.txt", FileMode.Append);
+            RocTools.WriteTXT("当前摇号时间 " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString(), CurrentPath + "result.txt", FileMode.Append);
             foreach (object obj in CurrentArray)
             {
-                RocTools.WriteTXT(obj.ToString(), CurrentPath + "result.txt", FileMode.Append);
+                RocTools.WriteTXT("\t" + obj.ToString(), CurrentPath + "result.txt", FileMode.Append);
             }
         }
 
  
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            File.Delete(SingleStartFileName);
             Environment.Exit(0);
         }
 
