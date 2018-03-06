@@ -11,3 +11,17 @@ D:\baozhangfang\obj\Debug\Lottery.application
 D:\baozhangfang\obj\Debug\Lottery.exe
 D:\baozhangfang\obj\Debug\Lottery.pdb
 D:\baozhangfang\obj\Debug\Lottery.People.resources
+D:\Work\Windows\baozhangfang\obj\Debug\经适房.csproj.ResolveComReference.cache
+D:\Work\Windows\baozhangfang\obj\Debug\Lottery.Form1.resources
+D:\Work\Windows\baozhangfang\obj\Debug\Lottery.People.resources
+D:\Work\Windows\baozhangfang\obj\Debug\Lottery.Properties.Resources.resources
+D:\Work\Windows\baozhangfang\obj\Debug\经适房.csproj.GenerateResource.Cache
+D:\Work\Windows\baozhangfang\obj\Debug\经适房.csproj.CoreCompileInputs.cache
+D:\Work\Windows\baozhangfang\obj\Debug\Lottery.exe
+D:\Work\Windows\baozhangfang\obj\Debug\Lottery.pdb
+D:\Work\Windows\baozhangfang\bin\Debug\Lottery.exe.manifest
+D:\Work\Windows\baozhangfang\bin\Debug\Lottery.application
+D:\Work\Windows\baozhangfang\bin\Debug\Lottery.exe
+D:\Work\Windows\baozhangfang\bin\Debug\Lottery.pdb
+D:\Work\Windows\baozhangfang\obj\Debug\Lottery.exe.manifest
+D:\Work\Windows\baozhangfang\obj\Debug\Lottery.application

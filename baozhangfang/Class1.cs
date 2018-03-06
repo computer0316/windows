@@ -163,10 +163,6 @@ namespace Lottery
             sw.Close();
         }
 
-        public static void SaveData(string filename, ArrayList al)
-        {
-            Application wordApp = new ApplicationClass();
-            //Document wordDoc = wordApp.Documents.Add(
-        }
+
     }
 }
