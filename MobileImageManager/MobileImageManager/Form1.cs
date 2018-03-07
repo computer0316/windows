@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Collections;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,11 @@ namespace MobileImageManager
     public partial class Form1 : Form
     {
         public string CurrentFolder = "";
+        public SortedList<DateTime, long> Files = new SortedList<DateTime, long>();
+
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();                  
         }
 
 
@@ -130,6 +133,19 @@ namespace MobileImageManager
             catch (Exception)
             {
                 return "";
+            }
+        }
+
+        private void CheckFileSize(string FileName)
+        {
+            FileInfo fileInfo = new FileInfo(FileName);
+            try
+            {
+                Files.Add(DateTime.Parse(GetDateFromImg(FileName)), fileInfo.Length);
+            }
+            catch(ArgumentException ae)
+            {
+
             }
         }
 
