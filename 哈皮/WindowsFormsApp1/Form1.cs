@@ -49,11 +49,11 @@ namespace WindowsFormsApp1
             string title = "";
             try
             {
-                title = "（测试版）" + RocTools.ReadTXT(CurrentPath + "title.txt");
+                title = RocTools.ReadTXT(CurrentPath + "title.txt");
             }
             catch (FileNotFoundException)
             {
-                title = "廊坊市莱恩网络科技有限公司（测试版）";
+                title = "";
             }            
             titleLabel.Text = title;
             titleLabel.Parent = pictureBox1;
@@ -90,7 +90,7 @@ namespace WindowsFormsApp1
             pringButton.Visible = false;
 
             //RoundLabel.Text = "当前是第 " + Round.ToString() + " 轮摇号";
-            RoundLabel.Text = "点击开始按钮启动当前摇号";
+            RoundLabel.Text = "";
             RoundLabel.TextAlign = ContentAlignment.MiddleCenter;
             RoundLabel.Font = new System.Drawing.Font("微软雅黑", RoundLabel.Font.Size);
             RoundLabel.Parent = pictureBox1;
@@ -151,7 +151,7 @@ namespace WindowsFormsApp1
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            RoundLabel.Text = "点击停止产生摇号结果";
+            //RoundLabel.Text = "点击停止产生摇号结果";
             startButton.Enabled = false;
             stopButton.Enabled = true;
             Stop = false;
@@ -161,7 +161,7 @@ namespace WindowsFormsApp1
         private void nextButton_Click(object sender, EventArgs e)
         {
             Round++;
-            RoundLabel.Text = "点击开始按钮启动当前摇号";
+            RoundLabel.Text = "";
             nextButton.Enabled = false;
             startButton.Enabled = true;
             DisplayLabels(null);
