@@ -97,24 +97,23 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.退出ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
             // RoundLabel
             // 
-            this.RoundLabel.AutoSize = true;
             this.RoundLabel.BackColor = System.Drawing.Color.Transparent;
             this.RoundLabel.Font = new System.Drawing.Font("宋体", 42F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.RoundLabel.ForeColor = System.Drawing.Color.White;
-            this.RoundLabel.Location = new System.Drawing.Point(172, 169);
+            this.RoundLabel.Location = new System.Drawing.Point(0, 281);
             this.RoundLabel.Name = "RoundLabel";
-            this.RoundLabel.Size = new System.Drawing.Size(366, 56);
+            this.RoundLabel.Size = new System.Drawing.Size(1372, 93);
             this.RoundLabel.TabIndex = 8;
             this.RoundLabel.Text = "当前是第几轮";
             // 

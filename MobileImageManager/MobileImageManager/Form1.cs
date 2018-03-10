@@ -1,4 +1,11 @@
 ﻿using System;
+<<<<<<< HEAD
+=======
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Collections;
+>>>>>>> 1d5867f139275c3a2c6b275f6b8b6252992d15d1
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -11,11 +18,17 @@ namespace MobileImageManager
     {
         // 用于保存照片所在的路径
         public string CurrentFolder = "";
+        public SortedList<DateTime, long> Files = new SortedList<DateTime, long>();
+
         public Form1()
         {
+<<<<<<< HEAD
             InitializeComponent();
             MessageBox.Show(FormatDate("2018-3-25 19:26", "yyyy-MM-dd"));
             Environment.Exit(0);
+=======
+            InitializeComponent();                  
+>>>>>>> 1d5867f139275c3a2c6b275f6b8b6252992d15d1
         }
 
 
@@ -134,6 +147,7 @@ namespace MobileImageManager
             }
         }
 
+<<<<<<< HEAD
         // 把日期转换成需要的格式
         private string FormatDate(string dateTime, string format)
         {
@@ -175,6 +189,19 @@ namespace MobileImageManager
         private void SaveImgAttributes(DateTime time, long length)
         {
 
+=======
+        private void CheckFileSize(string FileName)
+        {
+            FileInfo fileInfo = new FileInfo(FileName);
+            try
+            {
+                Files.Add(DateTime.Parse(GetDateFromImg(FileName)), fileInfo.Length);
+            }
+            catch(ArgumentException ae)
+            {
+
+            }
+>>>>>>> 1d5867f139275c3a2c6b275f6b8b6252992d15d1
         }
 
         private void button1_Click(object sender, EventArgs e)

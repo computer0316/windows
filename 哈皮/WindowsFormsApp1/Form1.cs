@@ -49,11 +49,11 @@ namespace WindowsFormsApp1
             string title = "";
             try
             {
-                title = "（测试版）" + RocTools.ReadTXT(CurrentPath + "title.txt");
+                title = RocTools.ReadTXT(CurrentPath + "title.txt");
             }
             catch (FileNotFoundException)
             {
-                title = "廊坊市莱恩网络科技有限公司（测试版）";
+                title = "";
             }            
             titleLabel.Text = title;
             titleLabel.Parent = pictureBox1;
@@ -90,21 +90,20 @@ namespace WindowsFormsApp1
             pringButton.Visible = false;
 
             //RoundLabel.Text = "当前是第 " + Round.ToString() + " 轮摇号";
-            RoundLabel.Text = "点击开始按钮启动当前摇号";
+            RoundLabel.Text = "";
+            RoundLabel.TextAlign = ContentAlignment.MiddleCenter;
+            RoundLabel.Font = new System.Drawing.Font("微软雅黑", RoundLabel.Font.Size);
             RoundLabel.Parent = pictureBox1;
 
             // 清空所有 label
             DisplayLabels(null);
-            label1.Parent = pictureBox1;
-            label2.Parent = pictureBox1;
-            label3.Parent = pictureBox1;
-            label4.Parent = pictureBox1;
-            label5.Parent = pictureBox1;
-            label6.Parent = pictureBox1;
-            label7.Parent = pictureBox1;
-            label8.Parent = pictureBox1;
-            label9.Parent = pictureBox1;
-            label10.Parent = pictureBox1;
+            Control[] Labels = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
+            foreach(Control label in Labels)
+            {
+                label.Parent = pictureBox1;
+                label.ForeColor = Color.Red;                
+                label.Font = new System.Drawing.Font("微软雅黑", RoundLabel.Font.Size);
+            }
 
             // 最大化窗口
             this.WindowState = FormWindowState.Maximized;
@@ -152,7 +151,7 @@ namespace WindowsFormsApp1
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            RoundLabel.Text = "点击停止产生摇号结果";
+            //RoundLabel.Text = "点击停止产生摇号结果";
             startButton.Enabled = false;
             stopButton.Enabled = true;
             Stop = false;
@@ -162,7 +161,7 @@ namespace WindowsFormsApp1
         private void nextButton_Click(object sender, EventArgs e)
         {
             Round++;
-            RoundLabel.Text = "点击开始按钮启动当前摇号";
+            RoundLabel.Text = "";
             nextButton.Enabled = false;
             startButton.Enabled = true;
             DisplayLabels(null);
@@ -172,7 +171,6 @@ namespace WindowsFormsApp1
         {
             while (!Stop)
             {
-                Thread.Sleep(50);
                 CurrentArray.Clear();
                 CurrentArray = GetCurrentArray(ArrayA, ArrayB);
                 DisplayLabels(CurrentArray);
@@ -226,7 +224,7 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            RoundLabel.Text = "摇号结果：";
+            RoundLabel.Text = "本轮中签结果";
             Trick();
             SaveResult();
             DeleteCurrentArray();
@@ -313,36 +311,40 @@ namespace WindowsFormsApp1
             int width = rect.Width;
             int height = rect.Height;
 
-            label1.Top = 260;
-            label1.Left = 200;
+            RoundLabel.Width = width;
+            RoundLabel.TextAlign = ContentAlignment.MiddleCenter;
+            RoundLabel.Top = 280;
 
-            label2.Top = label1.Top + (height - 300) / 5;
-            label2.Left = label1.Left;
+            label1.Top = 470;
+            label1.Left = 370;
 
-            label3.Top = label2.Top + (height - 300) / 5;
-            label3.Left = label1.Left;
+            label2.Top = label1.Top;
+            label2.Left = label1.Left + 272;
 
-            label4.Top = label3.Top + (height - 300) / 5;
-            label4.Left = label1.Left;
+            label3.Top = label1.Top;
+            label3.Left = label2.Left + 272;
 
-            label5.Top = label4.Top + (height - 300) / 5;
-            label5.Left = label1.Left;
+            label4.Top = label1.Top;
+            label4.Left = label3.Left + 272;
+
+            label5.Top = label1.Top;
+            label5.Left = label4.Left + 272;
 
 
-            label6.Top = label1.Top;
-            label6.Left = label1.Left+(width-300)/2;
+            label6.Top = label1.Top + 170;
+            label6.Left = label1.Left;
 
-            label7.Top = label6.Top + (height - 300) / 5;
-            label7.Left = label6.Left;
+            label7.Top = label6.Top;
+            label7.Left = label6.Left + 272;
 
-            label8.Top = label7.Top + (height - 300) / 5;
-            label8.Left = label6.Left;
+            label8.Top = label6.Top;
+            label8.Left = label7.Left + 272;
 
-            label9.Top = label8.Top + (height - 300) / 5;
-            label9.Left = label6.Left;
+            label9.Top = label6.Top;
+            label9.Left = label8.Left + 272;
 
-            label10.Top = label9.Top + (height - 300) / 5;
-            label10.Left = label6.Left;
+            label10.Top = label6.Top;
+            label10.Left = label9.Left + 272;
 
 
             pictureBox1.Width = width;
