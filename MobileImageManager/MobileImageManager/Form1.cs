@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace MobileImageManager
 {
     public partial class Form1 : Form
     {
+        // 用于保存照片所在的路径
         public string CurrentFolder = "";
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            MessageBox.Show(FormatDate("2018-3-25 19:26", "yyyy-MM-dd"));
+            Environment.Exit(0);
         }
 
 
@@ -57,6 +55,7 @@ namespace MobileImageManager
             }
         }
 
+        // 显示不同年份的照片数量
         private void Counter(string Year)
         {
             switch (Year)
@@ -83,6 +82,7 @@ namespace MobileImageManager
         }
 
         // 根据时间生成一个有效的新文件名
+        // 文件名是日期+序号形式，序号最大999，也就是同一天内不能超过999张照片
         private string GetNewFileName(string Path, string FileDate)
         {
             int i = 1;
@@ -103,7 +103,7 @@ namespace MobileImageManager
 
                 FileStream stream = new FileStream(FileName, FileMode.Open, FileAccess.Read);
                 Image image = Image.FromStream(stream, true, false);
-
+                // 从 exif 信息中提取拍摄日期
                 foreach (PropertyItem p in image.PropertyItems)
                 {
                     listBox1.Items.Add(p.Id + " " + ascii.GetString(p.Value));
@@ -124,6 +124,7 @@ namespace MobileImageManager
                     }
                     stream.Close();
                 }
+                // 如果没有能从 exif 中提取拍摄日期，则返回文件的最后修改日期
                 picDate = File.GetLastWriteTime(FileName).ToLongDateString().Replace('/', '-').Substring(0, 10);
                 return picDate;
             }
@@ -131,6 +132,49 @@ namespace MobileImageManager
             {
                 return "";
             }
+        }
+
+        // 把日期转换成需要的格式
+        private string FormatDate(string dateTime, string format)
+        {
+            if (!DateTime.TryParse(dateTime, out DateTime result)) {
+                return null;
+            }
+            string strTime = null;
+            string Year = result.Year.ToString();
+            string Month = result.Month.ToString();
+            string Day = result.Day.ToString();
+            string Hour = result.Hour.ToString();
+            string Minute = result.Minute.ToString();
+            string Second = result.Second.ToString();
+            switch (format)
+            {
+                case "yyyy-MM-dd":
+                    strTime = Year + "-" + Month + "-" + Day;
+                    break;
+                case "yyyy-MM-dd-hh-mm-ss":
+                    strTime = Year + "-" + Minute + "-" + Day + "-" + Hour + "-" + Minute + "-" + Second;
+                    break;
+                case "yyyymmdd":
+                    strTime = Year + Month + Day;
+                    break;
+                case "Year":
+                    strTime = Year;
+                    break;
+                case "Month":
+                    strTime = Month;
+                    break;
+                default:
+                    strTime = null;
+                    break;
+            }
+            return strTime;
+        }
+
+        // 保存照片时间，大小数据，用于后续的照片查重
+        private void SaveImgAttributes(DateTime time, long length)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)
