@@ -194,13 +194,16 @@ namespace WindowsFormsApp1
             {
                 ArrayA = RocRandom.MyRandom(ArrayA);
                 ArrayB = RocRandom.MyRandom(ArrayB);
-                for(int i = 0; i < ArrayA.Count; i++)
+                for (int i = 0; i < ArrayA.Count; i++)
                 {
                     temp.Add(ArrayA[i]);
                 }
-                for(int i = 0; i < 10 - ArrayA.Count; i++)
+                if (ArrayB.Count > 0)
                 {
-                    temp.Add(ArrayB[i]);
+                    for (int i = 0; i < 10 - ArrayA.Count; i++)
+                    {
+                        temp.Add(ArrayB[i]);
+                    }
                 }
                 return temp;
             }
@@ -228,7 +231,7 @@ namespace WindowsFormsApp1
             Trick();
             SaveResult();
             DeleteCurrentArray();
-            if (ArrayB.Count == 0)
+            if (ArrayA.Count ==0 && ArrayB.Count == 0)
             {
                 nextButton.Enabled = false;
             }
