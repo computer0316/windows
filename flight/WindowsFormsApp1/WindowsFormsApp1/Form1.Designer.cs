@@ -148,37 +148,37 @@
             // listBox1
             // 
             this.listBox1.BackColor = System.Drawing.Color.Red;
-            this.listBox1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listBox1.Font = new System.Drawing.Font("宋体", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listBox1.ForeColor = System.Drawing.Color.Black;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 21;
+            this.listBox1.ItemHeight = 35;
             this.listBox1.Location = new System.Drawing.Point(52, 294);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(372, 466);
+            this.listBox1.Size = new System.Drawing.Size(372, 459);
             this.listBox1.TabIndex = 19;
             // 
             // listBox2
             // 
             this.listBox2.BackColor = System.Drawing.Color.Red;
-            this.listBox2.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listBox2.Font = new System.Drawing.Font("宋体", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listBox2.ForeColor = System.Drawing.Color.Black;
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 21;
+            this.listBox2.ItemHeight = 35;
             this.listBox2.Location = new System.Drawing.Point(460, 294);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(366, 256);
+            this.listBox2.Size = new System.Drawing.Size(366, 249);
             this.listBox2.TabIndex = 20;
             // 
             // listBox3
             // 
             this.listBox3.BackColor = System.Drawing.Color.Red;
-            this.listBox3.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listBox3.Font = new System.Drawing.Font("宋体", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listBox3.ForeColor = System.Drawing.Color.Black;
             this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 21;
+            this.listBox3.ItemHeight = 35;
             this.listBox3.Location = new System.Drawing.Point(868, 294);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(366, 256);
+            this.listBox3.Size = new System.Drawing.Size(366, 249);
             this.listBox3.TabIndex = 21;
             // 
             // nextButton
