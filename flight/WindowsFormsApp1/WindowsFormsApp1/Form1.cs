@@ -125,17 +125,17 @@ namespace WindowsFormsApp1
             {
                 Array1.Add(record[0].ToString());
             }
-            MessageBox.Show(Array1.Count.ToString());
+            
             foreach (DataRow record in dataSet.Tables[3].Rows)
             {
                 Array2.Add(record[0].ToString());
             }
-            MessageBox.Show(Array1.Count.ToString());
+            
             foreach (DataRow record in dataSet.Tables[4].Rows)
             {
                 Array3.Add(record[0].ToString());
             }
-            MessageBox.Show(Array1.Count.ToString());
+            
             //for (int i = 0; i < int.Parse(array[0].ToString()); i++)
             //{
             //    Array1.Add("一居室：" + (i+1).ToString());
@@ -163,6 +163,7 @@ namespace WindowsFormsApp1
             }
             InitialData(dataSet);
             nextButton.Visible = true;
+            MessageBox.Show(Array1[0].ToString());
         }
 
         // 读取excel数据，返回 DataSet
