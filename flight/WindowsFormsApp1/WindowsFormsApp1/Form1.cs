@@ -106,6 +106,7 @@ namespace WindowsFormsApp1
                 {
                     tempArray.Add(Null2Zero( mDr[mDc].ToString()));
                 }
+                // 添加单位分配方案
                 Unit.Add(tempArray);
             }
 
@@ -115,21 +116,38 @@ namespace WindowsFormsApp1
             {
                 foreach (DataColumn mDc in dataSet.Tables[1].Columns)
                 {
+
                     array.Add(int.Parse(mDr[mDc].ToString()));
                 }
             }
-            for (int i = 0; i < int.Parse(array[0].ToString()); i++)
+            
+            foreach (DataRow record in dataSet.Tables[2].Rows)
             {
-                Array1.Add("一居室：" + (i+1).ToString());
+                Array1.Add(record[0].ToString());
             }
-            for (int i = 0; i < int.Parse(array[1].ToString()); i++)
+            
+            foreach (DataRow record in dataSet.Tables[3].Rows)
             {
-                Array2.Add("二居室：" + (i+1).ToString());
+                Array2.Add(record[0].ToString());
             }
-            for (int i = 0; i < int.Parse(array[2].ToString()); i++)
+            
+            foreach (DataRow record in dataSet.Tables[4].Rows)
             {
-                Array3.Add("双人间：" + (i+1).ToString());
+                Array3.Add(record[0].ToString());
             }
+            
+            //for (int i = 0; i < int.Parse(array[0].ToString()); i++)
+            //{
+            //    Array1.Add("一居室：" + (i+1).ToString());
+            //}
+            //for (int i = 0; i < int.Parse(array[1].ToString()); i++)
+            //{
+            //    Array2.Add("二居室：" + (i+1).ToString());
+            //}
+            //for (int i = 0; i < int.Parse(array[2].ToString()); i++)
+            //{
+            //    Array3.Add("双人间：" + (i+1).ToString());
+            //}
         }
 
 
@@ -145,6 +163,7 @@ namespace WindowsFormsApp1
             }
             InitialData(dataSet);
             nextButton.Visible = true;
+            MessageBox.Show(Array1[0].ToString());
         }
 
         // 读取excel数据，返回 DataSet
@@ -164,6 +183,15 @@ namespace WindowsFormsApp1
             strExcel = "select * from [sheet2$];";
             myCommand = new OleDbDataAdapter(strExcel, strConn);
             myCommand.Fill(ds, "table2");
+            strExcel = "select * from [一居室$];";
+            myCommand = new OleDbDataAdapter(strExcel, strConn);
+            myCommand.Fill(ds, "table3");
+            strExcel = "select * from [二居室$];";
+            myCommand = new OleDbDataAdapter(strExcel, strConn);
+            myCommand.Fill(ds, "table4");
+            strExcel = "select * from [双人间$];";
+            myCommand = new OleDbDataAdapter(strExcel, strConn);
+            myCommand.Fill(ds, "table5");
             return ds;
         }
 
@@ -218,7 +246,10 @@ namespace WindowsFormsApp1
                 listBox1.Items.Clear();
                 listBox2.Items.Clear();
                 listBox3.Items.Clear();
-
+                if (count3 == 1)
+                {
+                    int aa = 0;
+                }
                 for (int i = 0; i < count1; i++)
                 {
                     listBox1.Items.Add(Array1[i].ToString());

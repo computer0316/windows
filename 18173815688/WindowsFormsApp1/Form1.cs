@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
 
         private string CurrentPath = System.AppDomain.CurrentDomain.BaseDirectory;
         private string SingleStartFileName = @"C:\lottery.txt";
-        private int Round = 1;
+
 
         public Form1()
         {
@@ -43,6 +43,18 @@ namespace WindowsFormsApp1
 
         private void InitialControls()
         {
+            System.Drawing.Rectangle rect = new System.Drawing.Rectangle();
+            rect = Screen.GetWorkingArea(this);
+            int width = rect.Width;
+            int height = rect.Height;
+
+            listBox1.Left = 1140;
+            listBox1.Top = 256;
+            listBox1.Width = 500;
+            listBox1.Height = 600;
+
+
+
             // 设置程序标题
             string title = "";
             try
@@ -51,11 +63,12 @@ namespace WindowsFormsApp1
             }
             catch (FileNotFoundException)
             {
-                title = "（测试版）莱恩摇号软件";
+                title = "莱恩摇号软件";
             }            
-            titleLabel.Text = title;
+            titleLabel.Text = "（测试版）" + title;
             titleLabel.Parent = pictureBox1;
 
+            listBox1.Visible = false;
             // 设置程序logo
             try
             {
@@ -85,13 +98,9 @@ namespace WindowsFormsApp1
             
             startButton.Enabled = true;
             stopButton.Enabled = false;            
-            pringButton.Visible = false;
+            pringButton.Visible = true;
 
-            RoundLabel.Text = "点击开始摇出第一组";
-            RoundLabel.Text = "";
-            RoundLabel.TextAlign = ContentAlignment.MiddleCenter;
-            RoundLabel.Font = new System.Drawing.Font("微软雅黑", RoundLabel.Font.Size);
-            RoundLabel.Parent = pictureBox1;
+            
 
             // 清空所有 label
             DisplayLabels(null);
@@ -99,10 +108,32 @@ namespace WindowsFormsApp1
             foreach(Control label in Labels)
             {
                 label.Parent = pictureBox1;
-                label.ForeColor = Color.Red;                
-                label.Font = new System.Drawing.Font("微软雅黑", RoundLabel.Font.Size);
+                label.ForeColor = Color.White;                
+                label.Font = new System.Drawing.Font("微软雅黑", 80);
             }
 
+            RoundLabel.Text = "请点击开始进行摇号";
+            RoundLabel.TextAlign = ContentAlignment.MiddleCenter;
+            RoundLabel.Font = new System.Drawing.Font("微软雅黑", RoundLabel.Font.Size);
+
+            label1.Parent = pictureBox1;
+            label2.Parent = pictureBox1;
+            RoundLabel.Parent = pictureBox1;
+
+            // 设置个控件位置
+
+            label1.Left = 400;
+            label1.Top = 400;
+
+            label2.Left = 400;
+            label2.Top = 600;
+
+            startButton.Top = 650;
+            startButton.Left = 160;
+            stopButton.Top = startButton.Top;
+            stopButton.Left = startButton.Left + 200; 
+            pringButton.Top = startButton.Top;
+            pringButton.Left = stopButton.Left + 200;
             // 最大化窗口
             this.WindowState = FormWindowState.Maximized;
         }
@@ -125,7 +156,7 @@ namespace WindowsFormsApp1
                     {
                         Label[i].Text = TempArray[i].ToString();
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         MessageBox.Show("所有数据已经抽取完毕。");
                     }
@@ -155,7 +186,7 @@ namespace WindowsFormsApp1
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            RoundLabel.Text = "点击停止产生摇号结果";
+            RoundLabel.Visible = false;
             startButton.Enabled = false;
             stopButton.Enabled = true;
             Stop = false;
@@ -178,10 +209,11 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            RoundLabel.Text = "本轮摇号结果";
             
             SaveResult();
             listBox1.Items.Add(label1.Text + " " + label2.Text);
+            listBox1.SelectedIndex = listBox1.Items.Count-1;
+            listBox1.Visible = true;
             DeleteResult();
             stopButton.Enabled = false;
             startButton.Enabled = true;
@@ -200,12 +232,13 @@ namespace WindowsFormsApp1
 
         private void SaveResult()
         {
-            RocTools.WriteTXT("当前摇号时间 " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString(), CurrentPath + "result.txt", FileMode.Append);
+            //RocTools.WriteTXT("当前摇号时间 " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString(), CurrentPath + "result.txt", FileMode.Append);
             Control[] Label = { label1, label2 };
             foreach (Control l in Label)
             {
-                RocTools.WriteTXT("\t" + l.Text, CurrentPath + "result.txt", FileMode.Append); 
+                RocTools.WriteTXT("\t" + l.Text, CurrentPath + "result.txt", FileMode.Append);
             }
+            RocTools.WriteTXT("\t" + "\r\n", CurrentPath + "result.txt", FileMode.Append);
         }
 
  
@@ -217,44 +250,24 @@ namespace WindowsFormsApp1
 
         private void pringButton_Click(object sender, EventArgs e)
         {
-            Process pr = new Process();
+            try
+            {
+                Process pr = new Process();
 
-            pr.StartInfo.FileName = CurrentPath + "摇号结果.txt";//文件全称-包括文件后缀
+                pr.StartInfo.FileName = CurrentPath + "result.txt";//文件全称-包括文件后缀
 
-            pr.StartInfo.CreateNoWindow = true;
+                pr.StartInfo.CreateNoWindow = true;
 
-            pr.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                pr.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
-            pr.StartInfo.Verb = "Print";
+                pr.StartInfo.Verb = "Print";
 
-            pr.Start();
-        }
-
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle();
-            rect = Screen.GetWorkingArea(this);
-            int width = rect.Width;
-            int height = rect.Height;
-
-            //RoundLabel.Width = width;
-            //RoundLabel.TextAlign = ContentAlignment.MiddleCenter;
-            RoundLabel.Top = 280;
-
-            label1.Top = 435;
-            label1.Left = 530;
-
-            label2.Top = label1.Top + 145;
-            label2.Left = label1.Left;
-
-            listBox1.Left = 1120;
-            listBox1.Top = 275;
-            listBox1.Width = 500;
-            listBox1.Height = 600;
-            pictureBox1.Width = width;
-            pictureBox1.Height = height + 46;
-            pictureBox1.Left = 0;
-            pictureBox1.Top = 0;
+                pr.Start();
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("请检查是否已经生成了摇号结果。");
+            }
         }
 
     }

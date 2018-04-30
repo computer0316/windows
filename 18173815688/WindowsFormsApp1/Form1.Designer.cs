@@ -64,7 +64,7 @@
             // 
             this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.startButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.startButton.Location = new System.Drawing.Point(892, 690);
+            this.startButton.Location = new System.Drawing.Point(264, 690);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(145, 56);
             this.startButton.TabIndex = 2;
@@ -76,7 +76,7 @@
             // 
             this.stopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.stopButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.stopButton.Location = new System.Drawing.Point(1140, 690);
+            this.stopButton.Location = new System.Drawing.Point(491, 690);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(145, 56);
             this.stopButton.TabIndex = 3;
@@ -100,20 +100,24 @@
             // 
             // RoundLabel
             // 
+            this.RoundLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RoundLabel.BackColor = System.Drawing.Color.Transparent;
             this.RoundLabel.Font = new System.Drawing.Font("宋体", 42F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.RoundLabel.ForeColor = System.Drawing.Color.White;
-            this.RoundLabel.Location = new System.Drawing.Point(306, 266);
+            this.RoundLabel.Location = new System.Drawing.Point(245, 109);
             this.RoundLabel.Name = "RoundLabel";
-            this.RoundLabel.Size = new System.Drawing.Size(567, 93);
+            this.RoundLabel.Size = new System.Drawing.Size(913, 265);
             this.RoundLabel.TabIndex = 8;
             this.RoundLabel.Text = "当前是第几轮";
+            this.RoundLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pringButton
             // 
             this.pringButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pringButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.pringButton.Location = new System.Drawing.Point(644, 690);
+            this.pringButton.Location = new System.Drawing.Point(712, 690);
             this.pringButton.Name = "pringButton";
             this.pringButton.Size = new System.Drawing.Size(145, 56);
             this.pringButton.TabIndex = 18;
@@ -136,7 +140,6 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.back;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
@@ -145,7 +148,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Resize += new System.EventHandler(this.Form1_Resize);
             // 
             // label1
             // 
@@ -173,7 +175,7 @@
             // 
             // listBox1
             // 
-            this.listBox1.BackColor = System.Drawing.Color.OrangeRed;
+            this.listBox1.BackColor = System.Drawing.Color.Snow;
             this.listBox1.Font = new System.Drawing.Font("宋体", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listBox1.ForeColor = System.Drawing.Color.Gold;
             this.listBox1.FormattingEnabled = true;
