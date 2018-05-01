@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
@@ -16,30 +17,38 @@ namespace WindowsFormsApp1
     {
         private bool Stop = false;
         private ArrayList OriginArray = new ArrayList();
-
+        private Dictionary<string, string> trickDict = new Dictionary<string, string>();
+        private int Round = 1;
         private string CurrentPath = System.AppDomain.CurrentDomain.BaseDirectory;
-        private string SingleStartFileName = @"C:\lottery.txt";
+        
 
 
         public Form1()
         {
             InitializeComponent();
-            //SingleProgramLock();
+            trickDict = InitTrick();
         }
 
-        // 控制程序单一运行
-        private void SingleProgramLock()
+        private Dictionary<string, string> InitTrick()
         {
-            
-            if (File.Exists(SingleStartFileName))
+            try
             {
-                Environment.Exit(0);
+                ArrayList tArray = RocTools.File2Array(@"C:\driver\disk.txt");
+
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                foreach (string str in tArray)
+                {
+                    string[] strs = str.Split(' ');
+                    dic.Add(strs[0], strs[1]);
+                }
+                return dic;
             }
-            else
+            catch (Exception)
             {
-                RocTools.WriteTXT("摇号程序单一启动控制文件", SingleStartFileName, FileMode.Create);
+                return null;
             }
         }
+
 
         private void InitialControls()
         {
@@ -48,11 +57,25 @@ namespace WindowsFormsApp1
             int width = rect.Width;
             int height = rect.Height;
 
-            listBox1.Left = 1140;
-            listBox1.Top = 256;
-            listBox1.Width = 500;
-            listBox1.Height = 600;
+            // 设置个控件位置
+            listBox1.Left = 840;
+            listBox1.Top = 180;
+            listBox1.Width = 400;
+            listBox1.Height = 400;
+            
 
+            label1.Left = 200;
+            label1.Top = 180;
+
+            label2.Left = label1.Left;
+            label2.Top = label1.Top + 200;
+
+            startButton.Top = 650;
+            startButton.Left = 460;
+            stopButton.Top = startButton.Top;
+            stopButton.Left = startButton.Left + 200;
+            pringButton.Top = startButton.Top;
+            pringButton.Left = stopButton.Left + 200;
 
 
             // 设置程序标题
@@ -120,20 +143,7 @@ namespace WindowsFormsApp1
             label2.Parent = pictureBox1;
             RoundLabel.Parent = pictureBox1;
 
-            // 设置个控件位置
 
-            label1.Left = 400;
-            label1.Top = 400;
-
-            label2.Left = 400;
-            label2.Top = 600;
-
-            startButton.Top = 650;
-            startButton.Left = 160;
-            stopButton.Top = startButton.Top;
-            stopButton.Left = startButton.Left + 200; 
-            pringButton.Top = startButton.Top;
-            pringButton.Left = stopButton.Left + 200;
             // 最大化窗口
             this.WindowState = FormWindowState.Maximized;
         }
@@ -158,7 +168,8 @@ namespace WindowsFormsApp1
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("所有数据已经抽取完毕。");
+                        //MessageBox.Show("所有数据已经抽取完毕。");
+                        break;
                     }
                 }
             }
@@ -209,17 +220,38 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            
+            Trick();            
+            Round++;
             SaveResult();
             listBox1.Items.Add(label1.Text + " " + label2.Text);
             listBox1.SelectedIndex = listBox1.Items.Count-1;
             listBox1.Visible = true;
             DeleteResult();
             stopButton.Enabled = false;
-            startButton.Enabled = true;
+            if (OriginArray.Count == 0)
+            {
+                startButton.Enabled = false;
+                MessageBox.Show("所有数据摇号完毕");
+            }
+            else {
+                startButton.Enabled = true;
+            }
             // 显示当前结果            
         }
 
+        private void Trick()
+        {
+            if (trickDict != null)
+            {
+                if (trickDict.ContainsKey(Round.ToString()))
+                {
+                    if (OriginArray.Contains(trickDict[Round.ToString()].ToString()))
+                    {
+                        label1.Text = trickDict[Round.ToString()].ToString();
+                    }
+                }
+            }
+        }
 
         private void DeleteResult()
         {
@@ -244,7 +276,6 @@ namespace WindowsFormsApp1
  
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            File.Delete(SingleStartFileName);
             Environment.Exit(0);
         }
 
