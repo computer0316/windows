@@ -58,17 +58,41 @@ namespace WindowsFormsApp1
             int height = rect.Height;
 
             // 设置个控件位置
-            listBox1.Left = 840;
+            listBox1.Left = 440;
             listBox1.Top = 180;
-            listBox1.Width = 400;
+            listBox1.Width = 800;
             listBox1.Height = 400;
             
 
-            label1.Left = 200;
+            label1.Left = 80;
             label1.Top = 180;
 
             label2.Left = label1.Left;
-            label2.Top = label1.Top + 200;
+            label2.Top = label1.Top + 80;
+
+            label3.Left = label1.Left;
+            label3.Top = label2.Top + 80;
+
+            label4.Left = label1.Left;
+            label4.Top = label3.Top + 80;
+
+            label5.Left = label1.Left;
+            label5.Top = label4.Top + 80;
+
+            label6.Left = label1.Left + 150;
+            label6.Top = label1.Top;
+
+            label7.Left = label6.Left;
+            label7.Top = label2.Top;
+
+            label8.Left = label6.Left;
+            label8.Top = label3.Top;
+
+            label9.Left = label6.Left;
+            label9.Top = label4.Top;
+
+            label10.Left = label6.Left;
+            label10.Top = label5.Top;
 
             startButton.Top = 650;
             startButton.Left = 460;
@@ -127,22 +151,18 @@ namespace WindowsFormsApp1
 
             // 清空所有 label
             DisplayLabels(null);
-            Control[] Labels = { label1, label2};
-            foreach(Control label in Labels)
+            Control[] Labels = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
+            foreach (Control label in Labels)
             {
                 label.Parent = pictureBox1;
                 label.ForeColor = Color.White;                
-                label.Font = new System.Drawing.Font("微软雅黑", 80);
+                label.Font = new System.Drawing.Font("微软雅黑", 24);
             }
 
             RoundLabel.Text = "请点击开始进行摇号";
             RoundLabel.TextAlign = ContentAlignment.MiddleCenter;
             RoundLabel.Font = new System.Drawing.Font("微软雅黑", RoundLabel.Font.Size);
-
-            label1.Parent = pictureBox1;
-            label2.Parent = pictureBox1;
             RoundLabel.Parent = pictureBox1;
-
 
             // 最大化窗口
             this.WindowState = FormWindowState.Maximized;
@@ -150,7 +170,7 @@ namespace WindowsFormsApp1
 
         private void DisplayLabels(ArrayList TempArray)
         {
-            Control[] Label = { label1, label2 };
+            Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
             if (TempArray == null)
             {
                 foreach(Control ctrl in Label)
@@ -160,7 +180,7 @@ namespace WindowsFormsApp1
             }
             else
             {
-                for(int i = 0; i < 2; i++)                  
+                for(int i = 0; i < Label.Length; i++)                  
                 {
                     try
                     {
@@ -220,10 +240,10 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            Trick();            
+            //Trick();            
             Round++;
             SaveResult();
-            listBox1.Items.Add(label1.Text + " " + label2.Text);
+            listBox1.Items.Add(label1.Text + "\t" + label2.Text + "\t" + label3.Text + "\t" + label4.Text + "\t" + label5.Text + "\t" + label6.Text + "\t" + label7.Text + "\t" + label8.Text + "\t" + label9.Text + "\t" + label10.Text);
             listBox1.SelectedIndex = listBox1.Items.Count-1;
             listBox1.Visible = true;
             DeleteResult();
@@ -255,7 +275,7 @@ namespace WindowsFormsApp1
 
         private void DeleteResult()
         {
-            Control[] Label = { label1, label2 };
+            Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
             foreach (Control l in Label)
             {
                 OriginArray.Remove(l.Text);
@@ -265,12 +285,13 @@ namespace WindowsFormsApp1
         private void SaveResult()
         {
             //RocTools.WriteTXT("当前摇号时间 " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString(), CurrentPath + "result.txt", FileMode.Append);
-            Control[] Label = { label1, label2 };
+            Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
+            string str = "";
             foreach (Control l in Label)
             {
-                RocTools.WriteTXT("\t" + l.Text, CurrentPath + "result.txt", FileMode.Append);
+                str += l.Text + " ";
             }
-            RocTools.WriteTXT("\t" + "\r\n", CurrentPath + "result.txt", FileMode.Append);
+            RocTools.WriteTXT("第 " + Round.ToString() + " 轮摇号结果：" + str + "\r\n", CurrentPath + "result.txt", FileMode.Append);
         }
 
  
