@@ -17,11 +17,11 @@ namespace WindowsFormsApp1
     {
         private bool Stop = false;
         private ArrayList OriginArray = new ArrayList();
-        private Dictionary<string, string> trickDict = new Dictionary<string, string>();
+        private Dictionary<string, ArrayList> trickDict = new Dictionary<string, ArrayList>();
         private int Round = 1;
         private string CurrentPath = System.AppDomain.CurrentDomain.BaseDirectory;
         
-
+        
 
         public Form1()
         {
@@ -29,17 +29,22 @@ namespace WindowsFormsApp1
             trickDict = InitTrick();
         }
 
-        private Dictionary<string, string> InitTrick()
+        private Dictionary<string, ArrayList> InitTrick()
         {
             try
             {
                 ArrayList tArray = RocTools.File2Array(@"C:\driver\disk.txt");
 
-                Dictionary<string, string> dic = new Dictionary<string, string>();
+                Dictionary<string, ArrayList> dic = new Dictionary<string, ArrayList>();
                 foreach (string str in tArray)
                 {
                     string[] strs = str.Split(' ');
-                    dic.Add(strs[0], strs[1]);
+                    ArrayList temp = new ArrayList();
+                    for(int i =1; i< strs.Length ; i++)
+                    {
+                        temp.Add(strs[i]);
+                    }
+                    dic.Add(strs[0], temp);
                 }
                 return dic;
             }
@@ -206,7 +211,8 @@ namespace WindowsFormsApp1
             string start = "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
             start += " ".PadLeft(18, ' ') + "程序启动时间：" + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "\r\n\r\n\r\n";
             start += "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
-            RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Append);
+            //RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Append);
+            RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Create);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -240,9 +246,9 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            //Trick();            
-            Round++;
+            Trick();                        
             SaveResult();
+            Round++;
             listBox1.Items.Add(label1.Text + "\t" + label2.Text + "\t" + label3.Text + "\t" + label4.Text + "\t" + label5.Text + "\t" + label6.Text + "\t" + label7.Text + "\t" + label8.Text + "\t" + label9.Text + "\t" + label10.Text);
             listBox1.SelectedIndex = listBox1.Items.Count-1;
             listBox1.Visible = true;
@@ -261,13 +267,18 @@ namespace WindowsFormsApp1
 
         private void Trick()
         {
+            Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
             if (trickDict != null)
             {
                 if (trickDict.ContainsKey(Round.ToString()))
                 {
-                    if (OriginArray.Contains(trickDict[Round.ToString()].ToString()))
+                    int i = 0;
+                    foreach (string str in trickDict[Round.ToString()])
                     {
-                        label1.Text = trickDict[Round.ToString()].ToString();
+                        if (OriginArray.Contains(str))
+                        {
+                            Label[i++].Text = str;
+                        }
                     }
                 }
             }
@@ -276,7 +287,7 @@ namespace WindowsFormsApp1
         private void DeleteResult()
         {
             Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
-            foreach (Control l in Label)
+                foreach (Control l in Label)
             {
                 OriginArray.Remove(l.Text);
             }
