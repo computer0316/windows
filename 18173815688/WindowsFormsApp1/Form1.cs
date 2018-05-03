@@ -18,6 +18,7 @@ namespace WindowsFormsApp1
         private bool Stop = false;
         private ArrayList OriginArray = new ArrayList();
         private Dictionary<string, ArrayList> trickDict = new Dictionary<string, ArrayList>();
+        private int ShowCount = 7;
         private int Round = 1;
         private string CurrentPath = System.AppDomain.CurrentDomain.BaseDirectory;
         
@@ -117,7 +118,7 @@ namespace WindowsFormsApp1
             {
                 title = "莱恩摇号软件";
             }            
-            titleLabel.Text = "（测试版）" + title;
+            titleLabel.Text = title;
             titleLabel.Parent = pictureBox1;
 
             listBox1.Visible = false;
@@ -185,7 +186,8 @@ namespace WindowsFormsApp1
             }
             else
             {
-                for(int i = 0; i < Label.Length; i++)                  
+                //for(int i = 0; i < Label.Length; i++)                  
+                for (int i = 0; i < ShowCount; i++)
                 {
                     try
                     {
@@ -208,11 +210,7 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show("读取原始数据错误。");
             }
-            string start = "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
-            start += " ".PadLeft(18, ' ') + "程序启动时间：" + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "\r\n\r\n\r\n";
-            start += "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
-            //RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Append);
-            RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Create);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -249,7 +247,13 @@ namespace WindowsFormsApp1
             Trick();                        
             SaveResult();
             Round++;
-            listBox1.Items.Add(label1.Text + "\t" + label2.Text + "\t" + label3.Text + "\t" + label4.Text + "\t" + label5.Text + "\t" + label6.Text + "\t" + label7.Text + "\t" + label8.Text + "\t" + label9.Text + "\t" + label10.Text);
+            Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
+            string str = "";
+            for (int i = 0; i < ShowCount; i++)
+            {
+                str += Label[i].Text + " ";
+            }
+            listBox1.Items.Add(str);
             listBox1.SelectedIndex = listBox1.Items.Count-1;
             listBox1.Visible = true;
             DeleteResult();
@@ -287,9 +291,9 @@ namespace WindowsFormsApp1
         private void DeleteResult()
         {
             Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
-                foreach (Control l in Label)
+            for(int i=0;i<ShowCount;i++)
             {
-                OriginArray.Remove(l.Text);
+                OriginArray.Remove(Label[i].Text);
             }
         }
 
@@ -298,10 +302,15 @@ namespace WindowsFormsApp1
             //RocTools.WriteTXT("当前摇号时间 " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString(), CurrentPath + "result.txt", FileMode.Append);
             Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
             string str = "";
-            foreach (Control l in Label)
+            for(int i=0;i<ShowCount;i++)
             {
-                str += l.Text + " ";
+                str += Label[i].Text + " ";
             }
+            string start = "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
+            start += " ".PadLeft(18, ' ') + "当前轮摇号时间：" + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "\r\n\r\n\r\n";
+            start += "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
+            //RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Append);
+            RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Create);
             RocTools.WriteTXT("第 " + Round.ToString() + " 轮摇号结果：" + str + "\r\n", CurrentPath + "result.txt", FileMode.Append);
         }
 
@@ -333,5 +342,9 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ShowCount = toolStripComboBox1.SelectedIndex +1 ;
+        }
     }
 }
