@@ -18,7 +18,7 @@ namespace WindowsFormsApp1
         private bool Stop = false;
         private ArrayList OriginArray = new ArrayList();
         private Dictionary<string, ArrayList> trickDict = new Dictionary<string, ArrayList>();
-        private int ShowCount = 7;
+        private int ShowCount = 10;
         private int Round = 1;
         private string CurrentPath = System.AppDomain.CurrentDomain.BaseDirectory;
         
@@ -244,7 +244,8 @@ namespace WindowsFormsApp1
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            Trick();                        
+            Trick();
+            DisplayLabels(OriginArray);
             SaveResult();
             Round++;
             Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
@@ -274,16 +275,26 @@ namespace WindowsFormsApp1
             Control[] Label = { label1, label2, label3, label4, label5, label6, label7, label8, label9, label10 };
             if (trickDict != null)
             {
+                // 当前轮是否设置了作弊数据
                 if (trickDict.ContainsKey(Round.ToString()))
                 {
-                    int i = 0;
-                    foreach (string str in trickDict[Round.ToString()])
+                    // 循环处理作弊数据
+                    ArrayList temp = new ArrayList();
+                    foreach(string str in trickDict[Round.ToString()])
                     {
                         if (OriginArray.Contains(str))
                         {
-                            Label[i++].Text = str;
+                            temp.Add(str);
                         }
                     }
+                    foreach(string str in OriginArray)
+                    {
+                        if (!temp.Contains(str))
+                        {
+                            temp.Add(str);
+                        }
+                    }
+                    OriginArray = temp;
                 }
             }
         }
