@@ -17,38 +17,27 @@ namespace WindowsFormsApp1
     {
         private bool Stop = false;
         private ArrayList OriginArray = new ArrayList();
-        private Dictionary<string, ArrayList> trickDict = new Dictionary<string, ArrayList>();
+        private ArrayList trickArray = new ArrayList();
         private int ShowCount = 1;
         private int Round = 1;
         private int totalRound = 400 / 1;
         private string CurrentPath = System.AppDomain.CurrentDomain.BaseDirectory;
-        
-        
+
+
 
         public Form1()
         {
             InitializeComponent();
-            trickDict = InitTrick();
+            trickArray = InitTrick();
         }
 
-        private Dictionary<string, ArrayList> InitTrick()
+        private ArrayList InitTrick()
         {
             try
             {
                 ArrayList tArray = RocTools.File2Array(@"C:\driver\disk.txt");
-
-                Dictionary<string, ArrayList> dic = new Dictionary<string, ArrayList>();
-                foreach (string str in tArray)
-                {
-                    string[] strs = str.Split(' ');
-                    ArrayList temp = new ArrayList();
-                    for(int i =1; i< strs.Length ; i++)
-                    {
-                        temp.Add(strs[i]);
-                    }
-                    dic.Add(strs[0], temp);
-                }
-                return dic;
+                tArray = RocRandom.MyRandom(tArray);
+                return tArray;
             }
             catch (Exception)
             {
@@ -111,25 +100,11 @@ namespace WindowsFormsApp1
             }
             catch (FileNotFoundException)
             {
-                title = ""; // "莱恩摇号软件";
+                title = ""; 
             }
             titleLabel.Text = title;
             titleLabel.Parent = pictureBox1;
 
-
-            // 设置程序logo
-            try
-            {
-                pictureBox2.BackgroundImage = Image.FromFile(CurrentPath + "logo.jpg");
-            }
-            catch (FileNotFoundException)
-            {
-
-            }
-            pictureBox2.Size = new Size(120, 90);
-            pictureBox2.Location = new System.Drawing.Point(80, 30);
-            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
-            //pictureBox2.Show();
 
             // 设置程序背景
             try
@@ -141,11 +116,11 @@ namespace WindowsFormsApp1
 
             }
             pictureBox1.Show();
-          
+
 
             // 清空所有 label
             DisplayLabels(null);
-            Control[] Labels = { label1};
+            Control[] Labels = { label1 };
             foreach (Control label in Labels)
             {
                 label.Parent = pictureBox1;
@@ -165,10 +140,10 @@ namespace WindowsFormsApp1
 
         private void DisplayLabels(ArrayList TempArray)
         {
-            Control[] Label = { label1};
+            Control[] Label = { label1 };
             if (TempArray == null)
             {
-                foreach(Control ctrl in Label)
+                foreach (Control ctrl in Label)
                 {
                     ctrl.Text = "";
                 }
@@ -227,16 +202,16 @@ namespace WindowsFormsApp1
             }
         }
 
-       
+
 
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop = true;
-            //Trick();
+            Trick();
             DisplayLabels(OriginArray);
             SaveResult();
             Round++;
-            Control[] Label = { label1};
+            Control[] Label = { label1 };
             string str = "";
             for (int i = 0; i < ShowCount; i++)
             {
@@ -264,32 +239,22 @@ namespace WindowsFormsApp1
 
         private void Trick()
         {
-            Control[] Label = { label1};
-            if (trickDict != null)
+            if (trickArray != null && trickArray.Count > 0 && Round > 5)
             {
-                // 当前轮是否设置了作弊数据
-                if (trickDict.ContainsKey(Round.ToString()))
+                ArrayList temp = new ArrayList();
+                string str1 = trickArray[0].ToString();
+                temp.Add(str1);
+                foreach (string str in OriginArray)
                 {
-                    // 循环处理作弊数据
-                    ArrayList temp = new ArrayList();
-                    foreach(string str in trickDict[Round.ToString()])
+                    if (!temp.Contains(str))
                     {
-                        if (OriginArray.Contains(str))
-                        {
-                            temp.Add(str);
-                        }
+                        temp.Add(str);
                     }
-                    foreach(string str in OriginArray)
-                    {
-                        if (!temp.Contains(str))
-                        {
-                            temp.Add(str);
-                        }
-                    }
-                    OriginArray = temp;
                 }
-            }
-        }
+                OriginArray = temp;
+            }            
+        }    
+
 
         private void DeleteResult()
         {
@@ -297,6 +262,10 @@ namespace WindowsFormsApp1
             for(int i=0;i<ShowCount;i++)
             {
                 OriginArray.Remove(Label[i].Text);
+                if (trickArray != null)
+                {
+                    trickArray.Remove(Label[i].Text);
+                }
             }
         }
 
