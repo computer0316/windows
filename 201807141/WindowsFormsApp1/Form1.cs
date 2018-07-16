@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
         private int ShowCount = 3;
         private int Round = 1;
         private int count = 1;
-        private int totalRound = 134;
+        private int totalNum = 0;
         private string CurrentPath = System.AppDomain.CurrentDomain.BaseDirectory;
         
         
@@ -106,11 +106,11 @@ namespace WindowsFormsApp1
             startButton.Left = 460;
             stopButton.Top = startButton.Top;
             stopButton.Left = startButton.Left + 200;
-            pringButton.Top = startButton.Top;
-            pringButton.Left = stopButton.Left + 200;
+            printButton.Top = startButton.Top;
+            printButton.Left = stopButton.Left + 200;
 
             string start = "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
-            start += " ".PadLeft(18, ' ') + "当前轮摇号时间：" + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "\r\n\r\n\r\n";
+            start += " ".PadLeft(18, ' ') + "开始摇号时间：" + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "\r\n\r\n\r\n";
             start += "*".PadLeft(79, '*') + "\r\n\r\n\r\n";
             //RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Append);
             RocTools.WriteTXT(start, CurrentPath + "result.txt", FileMode.Create);
@@ -158,7 +158,8 @@ namespace WindowsFormsApp1
             
             startButton.Enabled = true;
             stopButton.Enabled = false;            
-            pringButton.Visible = true;
+            printButton.Visible = true;
+            printButton.Enabled = false;
 
             
 
@@ -193,7 +194,6 @@ namespace WindowsFormsApp1
             }
             else
             {
-                //for(int i = 0; i < Label.Length; i++)                  
                 for (int i = 0; i < ShowCount; i++)
                 {
                     try
@@ -261,13 +261,15 @@ namespace WindowsFormsApp1
             {                
                 listBox1.Items.Add(count++.ToString() + "\t" + Label[i].Text);
                 listBox1.SelectedIndex = listBox1.Items.Count - 1;
+                totalNum++;
             }
             listBox1.Visible = true;
             DeleteResult();
             stopButton.Enabled = false;
-            if (OriginArray.Count == 0 || Round>totalRound)
+            if (OriginArray.Count == 0 || totalNum> 4)
             {
                 startButton.Enabled = false;
+                printButton.Enabled = true;
                 MessageBox.Show("所有数据摇号完毕");
             }
             else {
@@ -357,7 +359,7 @@ namespace WindowsFormsApp1
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //ShowCount = toolStripComboBox1.SelectedIndex +1 ;
+            ShowCount = toolStripComboBox1.SelectedIndex + 1;
         }
     }
 }

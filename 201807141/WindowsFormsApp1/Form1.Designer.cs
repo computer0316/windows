@@ -34,9 +34,10 @@
             this.startButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RoundLabel = new System.Windows.Forms.Label();
-            this.pringButton = new System.Windows.Forms.Button();
+            this.printButton = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -94,14 +95,29 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1,
             this.退出ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 77);
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBox1.Text = "选择每次摇出个数";
+            this.toolStripComboBox1.ToolTipText = "选择每次摇出个数";
+            this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -118,17 +134,17 @@
             this.RoundLabel.Text = "当前是第几轮";
             this.RoundLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pringButton
+            // printButton
             // 
-            this.pringButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pringButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.pringButton.Location = new System.Drawing.Point(712, 690);
-            this.pringButton.Name = "pringButton";
-            this.pringButton.Size = new System.Drawing.Size(145, 56);
-            this.pringButton.TabIndex = 18;
-            this.pringButton.Text = "打印结果";
-            this.pringButton.UseVisualStyleBackColor = true;
-            this.pringButton.Click += new System.EventHandler(this.pringButton_Click);
+            this.printButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.printButton.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.printButton.Location = new System.Drawing.Point(712, 690);
+            this.printButton.Name = "printButton";
+            this.printButton.Size = new System.Drawing.Size(145, 56);
+            this.printButton.TabIndex = 18;
+            this.printButton.Text = "打印结果";
+            this.printButton.UseVisualStyleBackColor = true;
+            this.printButton.Click += new System.EventHandler(this.pringButton_Click);
             // 
             // pictureBox2
             // 
@@ -303,7 +319,7 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pringButton);
+            this.Controls.Add(this.printButton);
             this.Controls.Add(this.RoundLabel);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.stopButton);
@@ -333,7 +349,7 @@
         private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label RoundLabel;
-        private System.Windows.Forms.Button pringButton;
+        private System.Windows.Forms.Button printButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBox1;
@@ -345,6 +361,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
     }
 }
 
