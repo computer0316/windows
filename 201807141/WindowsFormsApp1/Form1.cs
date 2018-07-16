@@ -159,7 +159,7 @@ namespace WindowsFormsApp1
             startButton.Enabled = true;
             stopButton.Enabled = false;            
             printButton.Visible = true;
-            printButton.Enabled = false;
+            
 
             
 
@@ -266,10 +266,9 @@ namespace WindowsFormsApp1
             listBox1.Visible = true;
             DeleteResult();
             stopButton.Enabled = false;
-            if (OriginArray.Count == 0 || totalNum> 4)
+            if (OriginArray.Count == 0 )
             {
                 startButton.Enabled = false;
-                printButton.Enabled = true;
                 MessageBox.Show("所有数据摇号完毕");
             }
             else {
