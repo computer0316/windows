@@ -173,7 +173,7 @@ namespace WindowsFormsApp1
                 label.Font = new System.Drawing.Font("微软雅黑", 36);
             }
 
-            RoundLabel.Text = "当前软件是测试版";
+            RoundLabel.Text = ""; // "当前软件是测试版";
             RoundLabel.TextAlign = ContentAlignment.MiddleCenter;
             RoundLabel.Font = new System.Drawing.Font("微软雅黑", RoundLabel.Font.Size);
             RoundLabel.Parent = pictureBox1;
